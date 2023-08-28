@@ -11,6 +11,6 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'prettier'],
+  plugins: ['@typescript-eslint'],
   root: true,
 };
