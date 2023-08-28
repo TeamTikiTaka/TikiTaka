@@ -2,12 +2,23 @@ import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import type { ServerError } from '../types/types';
 
+const bcrypt = require('bcrypt')
+
+
 const app = express();
 app.use(express.json());
 
-app.use((req, res) => {
+const loginRouter = require('./routes/login')
+
+
+
+app.use('/api/login', loginRouter)
+
+
+app.use((_req, res) => {
   res.sendStatus(404);
 });
+
 app.use(
   (err: ServerError, _req: Request, res: Response, _next: NextFunction) => {
     const defaultErr = {
