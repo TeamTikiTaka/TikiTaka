@@ -9,7 +9,7 @@ router.post(
   '/',
   userController.authenticateUser,
   (req: Request, res: Response) => {
-    return res.status(200).json(true);
+    return res.status(200).json(res.locals.loginStatus);
   },
 );
 
@@ -18,7 +18,7 @@ router.post(
   userController.createUser,
   userController.authenticateUser,
   (req: Request, res: Response) => {
-    return res.status(200).json(true);
+    return res.status(200).json(res.locals.loginStatus);
   },
 );
 
