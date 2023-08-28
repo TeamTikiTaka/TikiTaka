@@ -1,17 +1,20 @@
-import { NextFunction } from "express";
+import { NextFunction, Request, Response } from 'express';
 
-const express = require('express');
+import express from 'express'
 const router = express.Router();
-const bcrypt = require('bcrypt')
 
+import { loginController } from '../controllers/loginController';
 
-const loginController = require('../controllers/loginController');
-
-router.get('/', (req: Request, res: Response, next: NextFunction) => {
-  const { username, password } = req.body;
-  bcrypt.hash(password, 10, (err: Error, hash: any) => {
-    console.log(username, hash)
-  })
-
-  return res.sendStatus(200)
+router.post('/', (req: Request, res: Response) => {
+  return res.sendStatus(200);
 });
+
+router.post(
+  '/signup',
+  loginController.createUser,
+  (req: Request, res: Response) => {
+    return res.sendStatus(200);
+  },
+);
+
+module.exports = router;

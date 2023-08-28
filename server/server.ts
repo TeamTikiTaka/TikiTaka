@@ -11,16 +11,18 @@ app.use(express.json());
 const loginRouter = require('./routes/login')
 
 
-
 app.use('/api/login', loginRouter)
 
 
-app.use((_req, res) => {
-  res.sendStatus(404);
+app.get('/', (req,res) => {
+  return res.sendFile('../client/index.html');
 });
 
+app.use((req, res) => res.sendStatus(404)); 
+
+
 app.use(
-  (err: ServerError, _req: Request, res: Response, _next: NextFunction) => {
+  (err: Error, _req: Request, res: Response, _next: NextFunction) => {
     const defaultErr = {
       log: 'Error caught in global handler',
       status: 500,
