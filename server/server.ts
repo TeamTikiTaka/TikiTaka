@@ -3,15 +3,16 @@ import type { Request, Response, NextFunction } from 'express';
 import type { ServerError } from '../types/types';
 
 const bcrypt = require('bcrypt')
+const cookieParser = require('cookie-parser')
 
 
 const app = express();
 app.use(express.json());
 
-const loginRouter = require('./routes/login')
+const userRouter = require('./routes/user')
 
 
-app.use('/api/login', loginRouter)
+app.use('/api/login', userRouter)
 
 
 app.get('/', (req,res) => {
