@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { JobData } from '../../types/types';
 import Job from "../Components/Job";
 import NewJob from "../Components/NewJob";
-import { UserContext } from '../Contexts/Contexts';
+import { useridFromCookie } from "../globalFunction";
 
 
 function JobBoard() {
@@ -10,12 +10,9 @@ function JobBoard() {
   const [jobList, setJobList] = useState<JobData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [jobListChanged, setJobListChanged] = useState(true);
-  const emptyForm = { id: -1, company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
+  const userId = useridFromCookie()
+  const emptyForm = { id: userId, company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
   const [editForm, setEditForm] = useState<JobData>(emptyForm);
-  const { userId } = useContext(UserContext);
-
-  
-
 
   useEffect(() => {
 
@@ -44,13 +41,14 @@ function JobBoard() {
     //   status: 'Interview',
     //   notes: 'lets go Mcdonald'
     // }]
+    console.log('Current user ID: ', userId)
     async function getData(){
       const response = await fetch(`/api/jobs/${userId}`)
       const data = await response.json()
       setJobList(data);
     }
     getData();
-  }, [jobListChanged, userId])
+  }, [jobListChanged])
 
 
 
