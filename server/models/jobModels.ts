@@ -1,4 +1,4 @@
-import { Pool, QueryResult} from 'pg'
+import { Pool, QueryResult } from 'pg'
 
 const PG_URI: string = 'postgres://ljquricq:sq_wyiKjyTxEklaClWlxDZXeUreAqIRy@berry.db.elephantsql.com/ljquricq'
 
