@@ -1,60 +1,95 @@
-import React, {useEffect, useState} from "react";
-import {JobData} from '../../types/types';
+import React, { useEffect, useState } from "react";
+import { JobData } from '../../types/types';
 import Job from "../Components/Job";
+import NewJob from "../Components/NewJob";
 
 function JobBoard() {
-  
+
   const [jobList, setJobList] = useState<JobData[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [jobListChanged, setJobListChanged] = useState(true);
+  const emptyForm = { company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
+  const [editForm, setEditForm] = useState<JobData>(emptyForm);
+
 
   useEffect(() => {
     //! Change this later. Dummy data for now
     const sampleData = [{
-      company:'Apple',
-      position:'IT Support',
-      location:'India',
-      salary:'$1000',
-      joblink:'www.google.com',
-      status:'applied',
-      notes:'hello this is IT support'
-    },{
-      company:'Mcdonalds',
-      position:'CEO',
-      location:'USA',
-      salary:'$1,000,000',
-      joblink:'www.mcd.com',
-      status:'Accepted',
-      notes:'Ronald Mcdonald'
-    },{
-      company:'CodeSmith',
-      position:'Fellow',
-      location:'Remote',
-      salary:'$50,000',
-      joblink:'www.codesmith.com',
-      status:'Interview',
-      notes:'lets go Mcdonald'
+      company: 'Apple',
+      position: 'IT Support',
+      location: 'India',
+      salary: '$1000',
+      joblink: 'www.google.com',
+      status: 'applied',
+      notes: 'hello this is IT support'
+    }, {
+      company: 'Mcdonalds',
+      position: 'CEO',
+      location: 'USA',
+      salary: '$1,000,000',
+      joblink: 'www.mcd.com',
+      status: 'Accepted',
+      notes: 'Ronald Mcdonald'
+    }, {
+      company: 'CodeSmith',
+      position: 'Fellow',
+      location: 'Remote',
+      salary: '$50,000',
+      joblink: 'www.codesmith.com',
+      status: 'Interview',
+      notes: 'lets go Mcdonald'
     }]
-    setJobList(sampleData)
+    setJobList(sampleData);
 
-  }, [])
+  }, [jobListChanged])
+
+
 
   //& Create headers
 
   return (
     <>
-    <div>Job Board</div>
-    <div>
-      {jobList ? jobList.map((job) => {
-        return <Job 
-        key={job.company} 
-        company={job.company} 
-        position={job.position} 
-        location={job.location} 
-        salary={job.salary} 
-        joblink={job.joblink} 
-        status={job.status} 
-        notes={job.notes} />;
-      }) : null}
-    </div>
+      <button onClick={() => {
+        setEditForm(emptyForm)
+        setShowModal(true)
+        }}>Add Job</button>
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="bg-white p-6 rounded shadow-lg z-10 max-w-2xl mx-auto">
+            <NewJob setShowModal={setShowModal} setJobListChanged={setJobListChanged} initialData={editForm} />
+          </div>
+        </div>
+      )}
+
+      <div className="container mx-auto mt-10">
+        <div className="grid grid-cols-9 gap-4 mb-4 p-4 border-b-2 text-center font-bold">
+          <span>Company</span>
+          <span>Position</span>
+          <span>Location</span>
+          <span>Salary</span>
+          <span>Job Link</span>
+          <span>Status</span>
+          <span>Notes</span>
+        </div>
+
+        {jobList ? jobList.map((job) => (
+          <Job
+            // key={job.company}
+            // company={job.company}
+            // position={job.position}
+            // location={job.location}
+            // salary={job.salary}
+            // joblink={job.joblink}
+            // status={job.status}
+            // notes={job.notes}
+            job={job}
+            setEditForm={setEditForm}
+            setShowModal={setShowModal}
+          />
+        )) : null}
+      </div>
+
     </>
   )
 }

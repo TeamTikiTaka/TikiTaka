@@ -9,8 +9,10 @@ const app = express();
 app.use(express.json());
 
 const userRouter = require('./routes/user')
+const openaiRouter = require('./routes/openai')
 
 app.use('/api/login', userRouter)
+app.use('/api/openai', openaiRouter)
 
 app.get('/', (req,res) => {
   return res.sendFile('../client/index.html');
