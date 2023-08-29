@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import express from 'express';
 const router = express.Router();
 const db = require('../models/jobModels');
@@ -19,7 +19,7 @@ router.delete('/:userId', jobsController.deleteJobs, async (req: Request, res: R
 });
 
 router.patch('/:userId', jobsController.updateJobs, async (req: Request, res: Response) => {
-  // return res.status(200).send(//json obj)
+  return res.status(200).send('Application updated!');
 });
 
 module.exports = router;

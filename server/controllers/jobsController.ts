@@ -69,15 +69,14 @@ export const jobsController: jobsController = {
   
   updateJobs: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const user_id = req.params.userId;
       const {job_id} = req.body;
       for(const column in req.body){
         if(column !== 'job_id'){
           const queryUpdateStr: string = `
           UPDATE applications
-          SET ${column} = ${req.body.column}
-          WHERE id = ${job_id}
-          `
+          SET ${column} = '${req.body[column]}'
+          WHERE id = ${job_id}`
+          await db.query(queryUpdateStr);
         }
       }
       return next();
