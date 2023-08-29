@@ -1,22 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { JobData } from '../../types/types';
 import Job from "../Components/Job";
 import NewJob from "../Components/NewJob";
+import { useridFromCookie } from "../globalFunction";
+
 
 function JobBoard() {
 
   const [jobList, setJobList] = useState<JobData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [jobListChanged, setJobListChanged] = useState(true);
-  const emptyForm = { company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
+  const userId = useridFromCookie()
+  const emptyForm = { id: userId, company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
   const [editForm, setEditForm] = useState<JobData>(emptyForm);
 
-  
-
-
   useEffect(() => {
-
-    const userId = 10; //! Change this once you figure out cookies
 
     // const sampleData = [{
     //   company: 'Apple',
@@ -43,6 +41,7 @@ function JobBoard() {
     //   status: 'Interview',
     //   notes: 'lets go Mcdonald'
     // }]
+    console.log('Current user ID: ', userId)
     async function getData(){
       const response = await fetch(`/api/jobs/${userId}`)
       const data = await response.json()
@@ -83,6 +82,7 @@ function JobBoard() {
 
         {jobList ? jobList.map((job) => (
           <Job
+            key={job.id}
             job={job}
             setEditForm={setEditForm}
             setShowModal={setShowModal}

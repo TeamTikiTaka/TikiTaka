@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NewJobType } from '../../types/types';
 import { JobData } from '../../types/types';
+import { useridFromCookie } from "../globalFunction";
+
 
 function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
-
+  const userId = useridFromCookie()
   const emptyForm: JobData = {
+    id: initialData.id ? initialData.id : Number(userId),
     company: initialData.company ? initialData.company : '',
     position: initialData.position ? initialData.position : '',
     location: initialData.location ? initialData.location : '',
@@ -16,6 +19,8 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   const [formData, setFormData] = useState<JobData>(emptyForm);
   const [formState, setFormState] = useState('form');
   const [aiInput, setAiInput] = useState('');
+  
+
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = event.target;
@@ -25,9 +30,21 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
 
   function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
-    //TODO: POST method to DB
-    setShowModal(false);
-    setJobListChanged(true);
+    async function addData() {
+      const response = await fetch(`/api/jobs/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      setJobListChanged(false);
+      setShowModal(false);
+
+    }
+    addData()
+
+
   }
 
   function openRawDetails(): void {

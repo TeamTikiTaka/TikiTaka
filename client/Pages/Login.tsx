@@ -17,9 +17,22 @@ function Login() {
         },
         body: JSON.stringify({ username, password }),
       });
-      const data = await res.json();
+
+      const data = await res.json()
+      const allCookies = document.cookie
+        .split(';')
+        .map((cookie) => cookie.trim())
+      let Username
+      let firstname
+      allCookies.forEach((cookie) => {
+        if (cookie.startsWith('username=')) {
+          Username = cookie.split('=')[1]
+        } else if (cookie.startsWith('firstname=')) {
+          firstname = cookie.split('=')[1]
+        }
+      });
+      console.log(Username, firstname);
       if (data === true) {
-        setUserId?.(1);
         setUserLogin?.(false);
         setLoginFailed(false);
       }
@@ -30,6 +43,7 @@ function Login() {
       console.log(error);
     }
   };
+
 
   const createAccount = async () => {
     try {
