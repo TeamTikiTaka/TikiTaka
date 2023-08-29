@@ -34,9 +34,17 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
     setFormState('textBox')
   }
 
-  function processRawDetails(): void{
+  async function processRawDetails(): Promise<void> {
     setFormState('loading')
-    console.log(aiInput)
+    const response = await fetch('/api/openai', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ jobDetails: aiInput}),
+    });
+    const jobDetails = await response.json()
+    console.log(jobDetails)
 
   }
 
