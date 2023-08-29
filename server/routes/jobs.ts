@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import express from 'express';
 const router = express.Router();
-const db = require('../models/jobModels');
 import {jobsController} from '../controllers/jobsController'
 
 //Any query to the database must include user_id in order to manipulate personalized data
