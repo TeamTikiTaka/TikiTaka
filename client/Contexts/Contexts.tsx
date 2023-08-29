@@ -4,6 +4,8 @@ export interface UserContextInterface{
   setUserId?:Dispatch<SetStateAction<number>>
   userLogin?: boolean
   setUserLogin?:Dispatch<SetStateAction<boolean>>
+  createUser?:boolean
+  setCreateUser?:Dispatch<SetStateAction<boolean>>
 }
 //Initialize UserContext
 export const UserContext = createContext<UserContextInterface>({});
