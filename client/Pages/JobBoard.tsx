@@ -45,7 +45,7 @@ function JobBoard() {
 
 
 
-  //& Create headers
+  //TODO: add delete functionality
 
   return (
     <>
@@ -75,14 +75,6 @@ function JobBoard() {
 
         {jobList ? jobList.map((job) => (
           <Job
-            // key={job.company}
-            // company={job.company}
-            // position={job.position}
-            // location={job.location}
-            // salary={job.salary}
-            // joblink={job.joblink}
-            // status={job.status}
-            // notes={job.notes}
             job={job}
             setEditForm={setEditForm}
             setShowModal={setShowModal}
