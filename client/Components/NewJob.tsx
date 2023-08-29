@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NewJobType } from '../../types/types';
 import { JobData } from '../../types/types';
+import { UserContext } from '../Contexts/Contexts';
+
 
 function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
 
@@ -17,6 +19,8 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   const [formData, setFormData] = useState<JobData>(emptyForm);
   const [formState, setFormState] = useState('form');
   const [aiInput, setAiInput] = useState('');
+  const { userId } = useContext(UserContext);
+
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = event.target;
@@ -28,7 +32,6 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
     event.preventDefault();
     //TODO: POST method to DB
     async function addData() {
-      const userId = 10; //! Change this once you figure out cookies
       const response = await fetch(`/api/jobs/${userId}`, {
         method: 'POST',
         headers: {

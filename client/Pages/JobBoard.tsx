@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { JobData } from '../../types/types';
 import Job from "../Components/Job";
 import NewJob from "../Components/NewJob";
+import { UserContext } from '../Contexts/Contexts';
+
 
 function JobBoard() {
 
@@ -10,13 +12,12 @@ function JobBoard() {
   const [jobListChanged, setJobListChanged] = useState(true);
   const emptyForm = { id: -1, company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
   const [editForm, setEditForm] = useState<JobData>(emptyForm);
+  const { userId } = useContext(UserContext);
 
   
 
 
   useEffect(() => {
-
-    const userId = 10; //! Change this once you figure out cookies
 
     // const sampleData = [{
     //   company: 'Apple',
@@ -49,8 +50,7 @@ function JobBoard() {
       setJobList(data);
     }
     getData();
-    console.log('Job List changed: ', jobListChanged) //! DELETE AFTER
-  }, [jobListChanged])
+  }, [jobListChanged, userId])
 
 
 
