@@ -67,6 +67,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
     <div className="bg-gray-200 p-6 rounded-md">
       {formState === 'loading' && (
         <div>Loading</div>
+        //TODO: add loading animation
       )}
       {formState === 'textBox' && (
         <form className='flex flex-col w-96 h-96'>
