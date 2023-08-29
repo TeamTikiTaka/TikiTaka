@@ -26,7 +26,7 @@ const App = () => {
         if (cookie.startsWith('user_id=')){
         const userid = cookie.split('=')[1]
         setUserId(Number(userid))
-        console.log(userid)
+        console.log('User Id in App: ', userid)
       }
     });
   }, [document.cookie])
