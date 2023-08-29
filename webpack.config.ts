@@ -23,6 +23,12 @@ module.exports = {
     hot: true,
     compress: true,
     historyApiFallback: true,
+    proxy: {
+      '/api/*': {
+        target: 'http://localhost:3000',
+        secure: false,
+      }
+    },
   },
   module: {
     rules: [
@@ -52,5 +58,5 @@ module.exports = {
       title: 'Job Tracker App',
       template: './client/index.html',
     }),
-  ],
-};
+  ], 
+}

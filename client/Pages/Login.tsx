@@ -15,11 +15,12 @@ function Login() {
         body: JSON.stringify({username,password})
       })
       const data = await res.json()
-      if(data === 'true'){
-        setUserId?.(data.UserId)
+      if(data === true){
+        setUserId?.(1)
+        setUserLogin?.(false)
         setLoginFailed(false)
       }
-      if(data === 'false'){
+      if(data === false){
         setLoginFailed(true)
       }
     } catch (error) {
