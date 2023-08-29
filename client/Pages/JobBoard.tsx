@@ -56,7 +56,7 @@ function JobBoard() {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="bg-white p-6 rounded shadow-lg z-10 max-w-xl mx-auto">
+          <div className="bg-white p-6 rounded shadow-lg z-10 max-w-2xl mx-auto">
             <NewJob setShowModal={setShowModal} setJobListChanged={setJobListChanged} initialData={editForm} />
           </div>
         </div>

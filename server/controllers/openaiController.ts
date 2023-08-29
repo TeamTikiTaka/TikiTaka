@@ -9,10 +9,10 @@ export const openaiController: openaiController = {
   chatGPTData: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { jobDetails } = req.body;
-      console.log('INPUT: ', jobDetails)
+      // console.log('INPUT: ', jobDetails)
       const results = await searchJobFields(jobDetails);
       res.locals.data = results;
-      console.log('OUTPUT: ', results) //! delete after
+      // console.log('OUTPUT: ', results)
       return next()
     }
     catch (err) {

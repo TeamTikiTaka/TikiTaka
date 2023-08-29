@@ -41,10 +41,25 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ jobDetails: aiInput}),
+      body: JSON.stringify({ jobDetails: aiInput }),
     });
     const jobDetails = await response.json()
     console.log(jobDetails)
+    async function populateData() {
+      const newFormData = { ...formData }
+      if ("company" in jobDetails && jobDetails.company !== '') newFormData.company = jobDetails.company;
+      else if ("Company" in jobDetails && jobDetails.Company !== '') newFormData.company = jobDetails.Company;
+      if ("position" in jobDetails && jobDetails.position !== '') newFormData.position = jobDetails.position;
+      else if ("Position" in jobDetails && jobDetails.Position !== '') newFormData.position = jobDetails.Position;
+      if ("location" in jobDetails && jobDetails.location !== '') newFormData.location = jobDetails.location;
+      else if ("Location" in jobDetails && jobDetails.Location !== '') newFormData.location = jobDetails.Location;
+      if ("salary" in jobDetails && jobDetails.salary !== '') newFormData.salary = jobDetails.salary;
+      else if ("Salary" in jobDetails && jobDetails.Salary !== '') newFormData.salary = jobDetails.Salary;
+
+      setFormData(newFormData)
+      setFormState('form')
+    }
+    await populateData();
 
   }
 
