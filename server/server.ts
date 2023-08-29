@@ -10,7 +10,11 @@ app.use(express.json());
 
 const userRouter = require('./routes/user')
 const openaiRouter = require('./routes/openai')
+const jobRouter = require('./routes/jobs')
 
+
+app.use('/api/login', userRouter)
+app.use('/api/jobs', jobRouter)
 app.use('/api/login', userRouter)
 app.use('/api/openai', openaiRouter)
 

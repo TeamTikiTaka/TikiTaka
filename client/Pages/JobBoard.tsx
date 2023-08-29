@@ -49,7 +49,7 @@ function JobBoard() {
 
   return (
     <>
-      <button onClick={() => {
+      <button className= 'p-2 mt-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring focus:ring-blue-300'onClick={() => {
         setEditForm(emptyForm)
         setShowModal(true)
         }}>Add Job</button>
@@ -62,8 +62,8 @@ function JobBoard() {
         </div>
       )}
 
-      <div className="container mx-auto mt-10">
-        <div className="grid grid-cols-9 gap-4 mb-4 p-4 border-b-2 text-center font-bold">
+      <div className="container mx-auto mt-10 ">
+        <div className="grid grid-cols-9 gap-4 mb-4 p-4 border-b-2 text-center font-bold text-white">
           <span>Company</span>
           <span>Position</span>
           <span>Location</span>

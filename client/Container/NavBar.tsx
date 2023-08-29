@@ -24,21 +24,25 @@ function Resources(){
 function CreateUser(){
   setCreateUser?.(true)
 }
+function Home(){
+  navigate('/')
+}
 
 return(
   <>
-  <div className='flex flex-row border-solid border-2 border-sky-500'>
+  <div className='sticky top-0 flex flex-row text-2xl text-white backdrop-blur-sm'>
+  <div className= ' hover:text-purple-500 hover:translate-x-1 px-2' onClick={Home}>Home</div>
     {userId === -1 ?
     <>
-    <div className= 'text-xl text-black hover:text-purple-500 hover:translate-x-1 px-2' onClick={Login}>Login</div>
-    <div className= 'text-xl text-black hover:text-purple-500 hover:translate-x-1 px-2' onClick={CreateUser}>CreateUser</div>
+    <div className= ' hover:text-purple-500 hover:translate-x-1 px-2' onClick={CreateUser}>CreateUser</div>
+    <div className= ' hover:text-purple-500 hover:translate-x-1 px-2' onClick={Login}>Login</div>
     </>
      :
      <>
-    <div className= 'text-xl text-black hover:text-purple-500 hover:translate-x-1 px-2' onClick={Logout}>Logout</div>
-    <div className= 'text-xl text-black hover:text-purple-500 hover:translate-x-1 px-2' onClick={JobBoard}>JobBoard</div>
+    <div className= '  hover:text-purple-500 hover:translate-x-1 px-2' onClick={Logout}>Logout</div>
+    <div className= '  hover:text-purple-500 hover:translate-x-1 px-2' onClick={JobBoard}>JobBoard</div>
     </> }
-  <div className= 'text-xl text-black hover:text-purple-500 hover:translate-x-1 px-2' onClick={Resources}>Resourses</div>
+  <div className= ' hover:text-purple-500 hover:translate-x-1 px-2' onClick={Resources}>Resourses</div>
   </div>
   </>
 )

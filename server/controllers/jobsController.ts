@@ -1,17 +1,13 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
+const db = require('../models/jobModels');
 
 type jobsController = {
-  getJobs: RequestHandler;
   addJobs: RequestHandler;
   deleteJobs: RequestHandler;
   updateJobs: RequestHandler;
 };
 
 export const jobsController: jobsController = {
-  getJobs: async (req: Request, res: Response, next: NextFunction) => {
-    const queryStr: string = ``;
-    return next();
-  },
   addJobs: async (req: Request, res: Response, next: NextFunction) => {
     return next();
   },

@@ -3,7 +3,7 @@ import { JobData } from '../../types/types';
 
 function Job({job, setEditForm, setShowModal} : { job: JobData, setEditForm(value: JobData): void, setShowModal(value: boolean): void}) {
   return (
-    <div className="grid grid-cols-9 gap-4 p-4 border-b">
+    <div className="grid grid-cols-9 gap-4 p-4 border-b text-white">
       <div className="flex justify-center">{job.company}</div>
       <div className="flex justify-center">{job.position}</div>
       <div className="flex justify-center">{job.location}</div>
@@ -14,7 +14,7 @@ function Job({job, setEditForm, setShowModal} : { job: JobData, setEditForm(valu
       <div className="flex justify-center">{job.status}</div>
       <div className="flex justify-center">{job.notes}</div>
       <button 
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2"
+          className="w-2/3 py-2 mt-4 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring focus:ring-blue-300"
           onClick={() => {
             setEditForm(job)
             setShowModal(true)
@@ -23,7 +23,7 @@ function Job({job, setEditForm, setShowModal} : { job: JobData, setEditForm(valu
           Edit
         </button>
         <button 
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+          className="w-2/3 py-2 mt-4 bg-red-500 hover:bg-red-700 focus:ring focus:ring-red-300"
           onClick={() => setShowModal(true)}
         >
           Delete
