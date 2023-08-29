@@ -1,10 +1,9 @@
-import React from "react";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-function Resources() {
+const Resources = () => {
   return (
-    <>
-    <div>Resources</div>
-    </>
+    <Link className='mx-10 text-white text-5xl' to={'https://leetcode.com'}>Leetcode</Link>
   )
 }
 

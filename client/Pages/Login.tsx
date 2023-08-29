@@ -3,9 +3,10 @@ import { UserContext } from '../Contexts/Contexts';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [firstname, setFirstname] = useState('');
   const [loginFailed, setLoginFailed] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const { setUserId, userLogin, setUserLogin, setCreateUser } =
+  const { setUserId, userLogin, setUserLogin, createUser, setCreateUser } =
     useContext(UserContext);
   const login = async () => {
     try {
@@ -16,6 +17,7 @@ function Login() {
         },
         body: JSON.stringify({ username, password }),
       });
+
       const data = await res.json()
       const allCookies = document.cookie
         .split(';')
@@ -42,6 +44,32 @@ function Login() {
     }
   };
 
+
+  const createAccount = async () => {
+    try {
+      const res = await fetch('/api/login/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+          firstname: firstname,
+        }),
+      });
+      const data = await res.json();
+      if (data) {
+        setUserId?.(1);
+        setUserLogin?.(false);
+        setLoginFailed(false);
+        setCreateUser!(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -49,67 +77,124 @@ function Login() {
   return (
     <>
       {userLogin === true ? (
-        <div className="fixed inset-0 flex items-center justify-center z-10 backdrop-blur-sm text-white">
-          <div className="relative flex flex-col justify-center items-center w-1/3 h-2/5 rounded bg-blue-900 bg-opacity-70">
+        <div
+          className="fixed inset-0 z-10 backdrop-blur-sm text-white"
+          onClick={() => {
+            // setUserLogin?.(false);
+            // setLoginFailed(false);
+          }}
+        >
+          <div className="relative flex flex-col items-center w-1/3 bg-neutral-800 py-10 m-auto mt-48 bg-opacity-50">
             <button
               onClick={() => {
                 setUserLogin?.(false);
                 setLoginFailed(false);
               }}
-              className="absolute top-0 right-0 p-2 "
+              className="absolute top-3 right-4"
             >
               X
             </button>
-            <div className="absolute top-0 text-3xl font-semibold">
-              Welcome back to Git Hired!
-            </div>
-            <div className="flex flex-col space-y-2 w-2/3">
-              <input
-                type="username"
-                onChange={(e) => {
-                  setUsername(e.target.value);
+            <div className="flex w-3/4 bg-opacity-50">
+              <span
+                className={`rounded-t-lg ${
+                  !createUser && 'bg-neutral-500'
+                } px-5 w-max grow p-3 text-center`}
+                onClick={(e) => {
+                  setCreateUser?.(false);
+                  setUserLogin?.(true);
                 }}
-                className="px-4 py-2 rounded-lg bg-gray-800 bg-opacity-70  placeholder-white focus:ring focus:ring-blue-300"
-                placeholder="UserName Here"
-              />
-              <input
-                type={passwordVisible ? 'text' : 'password'}
-                onChange={(e) => {
-                  setPassword(e.target.value);
+              >
+                Login
+              </span>
+              <span
+                className={`rounded-t-lg ${
+                  createUser && 'bg-neutral-500'
+                } px-5 w-max grow p-3 text-center`}
+                onClick={(e) => {
+                  setCreateUser?.(true);
+                  // setUserLogin?.(false);
                 }}
-                className="px-4 py-2 rounded-lg bg-gray-800 bg-opacity-70  placeholder-white focus:ring focus:ring-blue-300"
-                placeholder="Password Here"
-              />
+              >
+                Signup
+              </span>
             </div>
-            {loginFailed === true ? (
+
+            {userLogin && !createUser && (
+              <div className="flex flex-col bg-neutral-500 w-3/4 p-3 rounded-b-lg">
+                <input
+                  type="username"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                  className="m-2 px-4 py-2 bg-opacity-70 bg-gray-800"
+                  placeholder="Username"
+                />
+                <input
+                  type={passwordVisible ? 'text' : 'password'}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  className="m-2 px-4 py-2 bg-opacity-70 bg-gray-800"
+                  placeholder="Password"
+                />
+                <button onClick={togglePasswordVisibility}>
+                  {passwordVisible ? 'Hide password' : 'Show password'}
+                </button>
+                <button
+                  type="submit"
+                  onClick={login}
+                  className="w-2/3 py-2 mt-4 bg-neutral-950 m-auto rounded-full hover:bg-gray-100 hover:text-slate-950"
+                >
+                  Sign In
+                </button>
+              </div>
+            )}
+            {createUser && (
+              <div className="flex flex-col bg-neutral-500 w-3/4 p-3 rounded-b-lg">
+                <input
+                  type="name"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                  className="m-2 px-4 py-2 bg-opacity-70 bg-gray-800"
+                  placeholder="Name"
+                />
+                <input
+                  type="username"
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                  className="m-2 px-4 py-2 bg-opacity-70 bg-gray-800"
+                  placeholder="Username"
+                />
+                <input
+                  type={passwordVisible ? 'text' : 'password'}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                  className="m-2 px-4 py-2 bg-opacity-70 bg-gray-800"
+                  placeholder="Password"
+                />
+                <button onClick={togglePasswordVisibility}>
+                  {passwordVisible ? 'Hide password' : 'Show password'}
+                </button>
+                <button
+                  type="submit"
+                  onClick={createAccount}
+                  className="w-2/3 py-2 mt-4 bg-neutral-950 m-auto rounded-full hover:bg-gray-100 hover:text-slate-950"
+                >
+                  Create Account
+                </button>
+              </div>
+            )}
+
+            {/* {loginFailed === true ? (
               <div className="text-red-600 mt-2">
                 Username or password does not exist
               </div>
             ) : (
               ''
-            )}
-            <button onClick={togglePasswordVisibility}>
-              {passwordVisible ? 'Hide password' : 'Show password'}
-            </button>
-            <button
-              type="submit"
-              onClick={login}
-              className="w-2/3 py-2 mt-4 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring focus:ring-blue-300"
-            >
-              Login
-            </button>
-            <div className="mt-4">
-              Not a User? Sign up{' '}
-              <a
-                className="hover:text-white font-medium cursor-pointer"
-                onClick={() => {
-                  setCreateUser?.(true);
-                  setUserLogin?.(false);
-                }}
-              >
-                here
-              </a>
-            </div>
+            )} */}
           </div>
         </div>
       ) : (
