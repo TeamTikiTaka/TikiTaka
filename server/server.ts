@@ -1,6 +1,5 @@
 import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
-import type { ServerError } from '../types/types';
 
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
@@ -12,10 +11,8 @@ app.use(express.json());
 const userRouter = require('./routes/user')
 const openaiRouter = require('./routes/openai')
 
-
 app.use('/api/login', userRouter)
 app.use('/api/openai', openaiRouter)
-
 
 app.get('/', (req,res) => {
   return res.sendFile('../client/index.html');
