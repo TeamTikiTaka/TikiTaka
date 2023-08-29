@@ -16,3 +16,9 @@ router.get('/:userId', async (req: Request, res: Response) => {
 });
 
 module.exports = router;
+=======
+
+import { jobsController } from '../controllers/jobsController';
+
+router.get('/', async (req: Request, res: Response) => {});
+

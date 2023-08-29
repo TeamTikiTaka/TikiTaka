@@ -10,25 +10,25 @@ function CreateUser() {
   const {createUser,setCreateUser,setUserLogin} = useContext(UserContext)
 
   useEffect(() => {
-    setAllInputsFilled(name !== '' && username !== '' && password !== '' && confirmPassword === password);
+    setAllInputsFilled( username !== '' && password !== '' && confirmPassword === password);
   }, [name, username, password, confirmPassword]);
   
   const createuser= async () =>{
     try {
-      const res = await fetch ('/api/login',{
+      const res = await fetch ('/api/login/signup',{
         method:'POST',
         headers:{
           'Content-Type':'application/json'
         },
-        body: JSON.stringify({username,password})
+        body: JSON.stringify({username:username,password:password})
       })
       const data = await res.json()
-      if(data === 'true'){
+      if(data === true){
         setCreateUser?.(false)
         setUserLogin?.(true)
         setUsernameExists(false)
       }
-      if(data === 'false'){
+      if(data === false){
         setUsernameExists(true)
       }
     } catch (error) {
@@ -44,7 +44,7 @@ function CreateUser() {
         <button onClick={()=>{setCreateUser?.(false)}} className='absolute top-0 right-0 p-2 rounded-2xl border-none'>X</button>
         <div className='absolute top-0 text-3xl'>Welcome to Git Hired!</div>
         <div>Please fill out all fields</div>
-        <input type='username' onChange={(e)=>{setName(e.target.value)}} className=' w-2/5 rounded m-2' placeholder='Name' required/>
+        <input type='username' onChange={(e)=>{setName(e.target.value)}} className=' w-2/5 rounded m-2' placeholder='Name' />
         <input type='username' onChange={(e)=>{setUsername(e.target.value)}} className=' w-2/5 rounded m-2' placeholder='UserName' required/>
         <input type='password' onChange={(e)=>{setPassword(e.target.value)}} className=' w-2/5 rounded m-2' placeholder='Password' required/>
         <input type='password' onChange={(e)=>{setConfirmPassword(e.target.value)}} className=' w-2/5 rounded m-2' placeholder='Confirm Password' required/>

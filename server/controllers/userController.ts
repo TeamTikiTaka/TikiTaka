@@ -22,25 +22,26 @@ type userController = {
 
 export const userController: userController = {
   createUser: async (req: Request, res: Response, next: NextFunction) => {
-    const { username, password } = req.body;
+    const { username, password, firstname} = req.body;
 
     const querySelectStr: string = `
       SELECT * 
       FROM users
       WHERE users.username = '${username}'`;
     const query = await db.query(querySelectStr);
-    // console.log('rows: ', query.rows)
 
     if (query.rows.length > 0) {
-      return res.status(200).json(false);
+      res.locals.loginStatus = false;
+      return next()
     }
 
     const hash = bcrypt.hashSync(password, 10);
     const queryInsertStr = `
-      INSERT INTO users(username, password)
-      VALUES ('${username}', '${hash}')`;
+      INSERT INTO users(username, password, firstname)
+      VALUES ('${username}', '${hash}', '${firstname}')`;
 
     await db.query(queryInsertStr);
+
     res.locals.loginStatus = true;
 
     return next();
@@ -56,10 +57,14 @@ export const userController: userController = {
     const query = await db.query(queryStr);
 
     if (query.rows.length === 0) {
-      return res.status(200).json(false);
+      res.locals.loginStatus = false;
+      return next()
     }
 
     const hash = query.rows[0].password;
+    const firstname = query.rows[0].firstname;
+    res.locals.firstname = firstname;
+    res.locals.username = username;
     res.locals.loginStatus = bcrypt.compareSync(password, hash);
 
     return next();
