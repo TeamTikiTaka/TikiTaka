@@ -1,4 +1,5 @@
 export type JobData = {
+  id: number;
   company: string;
   position: string;
   location: string;
