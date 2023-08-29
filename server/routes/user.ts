@@ -9,6 +9,9 @@ router.post(
   '/',
   userController.authenticateUser,
   (req: Request, res: Response) => {
+    
+    res.cookie('firstname', res.locals.firstname)
+    res.cookie('username', res.locals.username)
     return res.status(200).json(res.locals.loginStatus);
   },
 );
