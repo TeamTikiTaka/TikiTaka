@@ -64,7 +64,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   }
 
   return (
-    <div className="bg-gray-200 p-6 rounded-md">
+    <div className="bg-gray-200 p-6 rounded-md text-white">
       {formState === 'loading' && (
         <div>Loading</div>
         //TODO: add loading animation
