@@ -8,10 +8,11 @@ const MainContainer = () => {
   return (
     <>
     <Routes>
-      <Route path="/login" element={<Login />} />
+      {/* <Route path="/login" element={<Login />} /> */}
       <Route path="/jobboard" element={<JobBoard />} />
       <Route path="/resources" element={<Resources />} />
     </Routes>
+    <Login/>
     </>
   )
 }
