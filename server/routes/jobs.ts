@@ -12,7 +12,7 @@ router.get('/:userId', async (req: Request, res: Response) => {
   FROM applications
   WHERE applications.user_id = ${userId}`;
   const query = await db.query(queryStr);
-  return res.status(200).json(query);
+  return res.status(200).json(query.rows);
 });
 
 module.exports = router;
