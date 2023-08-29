@@ -9,6 +9,14 @@ const app = express();
 app.use(express.json());
 
 const userRouter = require('./routes/user')
+
+const jobRouter = require('./routes/jobs')
+
+
+app.use('/api/login', userRouter)
+
+app.use('/api/jobs', jobRouter)
+=======
 const openaiRouter = require('./routes/openai')
 
 app.use('/api/login', userRouter)
