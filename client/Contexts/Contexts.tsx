@@ -6,6 +6,8 @@ export interface UserContextInterface{
   setUserLogin?:Dispatch<SetStateAction<boolean>>
   createUser?:boolean
   setCreateUser?:Dispatch<SetStateAction<boolean>>
+  globalFirstName?: string
+  setGlobalFirstName?:Dispatch<SetStateAction<string>>
 }
 //Initialize UserContext
 export const UserContext = createContext<UserContextInterface>({});
