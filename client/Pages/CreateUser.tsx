@@ -46,7 +46,7 @@ function CreateUser() {
     {createUser === true ?
    <div className='fixed inset-0 flex items-center justify-center z-10 backdrop-blur-sm text-white'>
    <div className="relative flex flex-col justify-center items-center w-1/3 h-3/6 rounded bg-blue-900 bg-opacity-70">
-     <button onClick={() => { setCreateUser?.(false) }} className='absolute top-0 right-0 p-2 '>X</button>
+     <button onClick={() => { setCreateUser?.(false);setUsernameExists(false) }} className='absolute top-0 right-0 p-2 '>X</button>
      <div className='absolute top-0 text-3xl font-semibold'>Welcome to Git Hired!</div>
      <div className='mb-4'>Please fill out all fields</div>
      <div className="flex flex-col space-y-2 w-2/3">
