@@ -2,14 +2,28 @@ import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import type { ServerError } from '../types/types';
 
+const bcrypt = require('bcrypt')
+const cookieParser = require('cookie-parser')
+
+
 const app = express();
 app.use(express.json());
 
-app.use((req, res) => {
-  res.sendStatus(404);
+const userRouter = require('./routes/user')
+
+
+app.use('/api/login', userRouter)
+
+
+app.get('/', (req,res) => {
+  return res.sendFile('../client/index.html');
 });
+
+app.use((req, res) => res.sendStatus(404)); 
+
+
 app.use(
-  (err: ServerError, _req: Request, res: Response, _next: NextFunction) => {
+  (err: Error, _req: Request, res: Response, _next: NextFunction) => {
     const defaultErr = {
       log: 'Error caught in global handler',
       status: 500,
