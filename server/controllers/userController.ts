@@ -66,6 +66,7 @@ export const userController: userController = {
     res.locals.firstname = firstname;
     res.locals.username = username;
     res.locals.loginStatus = bcrypt.compareSync(password, hash);
+    res.locals.user_id = query.rows[0].id;
 
     return next();
   },

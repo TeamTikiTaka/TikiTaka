@@ -1,51 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { JobData } from '../../types/types';
 import Job from "../Components/Job";
 import NewJob from "../Components/NewJob";
+import { UserContext } from '../Contexts/Contexts';
+
 
 function JobBoard() {
 
   const [jobList, setJobList] = useState<JobData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [jobListChanged, setJobListChanged] = useState(true);
-  const emptyForm = { company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
+  const emptyForm = { id: -1, company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
   const [editForm, setEditForm] = useState<JobData>(emptyForm);
+  const { userId } = useContext(UserContext);
+
+  
 
 
   useEffect(() => {
-    //! Change this later. Dummy data for now
-    const sampleData = [{
-      company: 'Apple',
-      position: 'IT Support',
-      location: 'India',
-      salary: '$1000',
-      joblink: 'www.google.com',
-      status: 'applied',
-      notes: 'hello this is IT support'
-    }, {
-      company: 'Mcdonalds',
-      position: 'CEO',
-      location: 'USA',
-      salary: '$1,000,000',
-      joblink: 'www.mcd.com',
-      status: 'Accepted',
-      notes: 'Ronald Mcdonald'
-    }, {
-      company: 'CodeSmith',
-      position: 'Fellow',
-      location: 'Remote',
-      salary: '$50,000',
-      joblink: 'www.codesmith.com',
-      status: 'Interview',
-      notes: 'lets go Mcdonald'
-    }]
-    setJobList(sampleData);
 
-  }, [jobListChanged])
+    // const sampleData = [{
+    //   company: 'Apple',
+    //   position: 'IT Support',
+    //   location: 'India',
+    //   salary: '$1000',
+    //   joblink: 'www.google.com',
+    //   status: 'applied',
+    //   notes: 'hello this is IT support'
+    // }, {
+    //   company: 'Mcdonalds',
+    //   position: 'CEO',
+    //   location: 'USA',
+    //   salary: '$1,000,000',
+    //   joblink: 'www.mcd.com',
+    //   status: 'Accepted',
+    //   notes: 'Ronald Mcdonald'
+    // }, {
+    //   company: 'CodeSmith',
+    //   position: 'Fellow',
+    //   location: 'Remote',
+    //   salary: '$50,000',
+    //   joblink: 'www.codesmith.com',
+    //   status: 'Interview',
+    //   notes: 'lets go Mcdonald'
+    // }]
+    async function getData(){
+      const response = await fetch(`/api/jobs/${userId}`)
+      const data = await response.json()
+      setJobList(data);
+    }
+    getData();
+  }, [jobListChanged, userId])
 
 
 
-  //& Create headers
+  //TODO: add delete functionality
 
   return (
     <>
@@ -75,14 +84,7 @@ function JobBoard() {
 
         {jobList ? jobList.map((job) => (
           <Job
-            // key={job.company}
-            // company={job.company}
-            // position={job.position}
-            // location={job.location}
-            // salary={job.salary}
-            // joblink={job.joblink}
-            // status={job.status}
-            // notes={job.notes}
+            key={job.id}
             job={job}
             setEditForm={setEditForm}
             setShowModal={setShowModal}

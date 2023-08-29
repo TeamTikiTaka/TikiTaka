@@ -12,6 +12,7 @@ router.post(
     
     res.cookie('firstname', res.locals.firstname)
     res.cookie('username', res.locals.username)
+    res.cookie('user_id', res.locals.user_id)
     return res.status(200).json(res.locals.loginStatus);
   },
 );
