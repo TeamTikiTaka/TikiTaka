@@ -1,52 +1,88 @@
-import React,{useContext,useState}  from "react";
+import React, { useContext, useState } from 'react';
 
-import {useNavigate} from 'react-router-dom'
-import {UserContext} from '../Contexts/Contexts'
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../Contexts/Contexts';
 
 function NavBar() {
-const navigate = useNavigate()
-const {userId,setUserId,setUserLogin,userLogin,setCreateUser} = useContext(UserContext)
-function JobBoard(){
-  navigate('/jobboard')
-}
-function Login(){
-  setUserLogin?.(true)
-  console.log(userLogin)
-  // navigate('/login')
-}
-function Logout(){
-  setUserId?.(-1)
-  navigate('/')
-}
-function Resources(){
-  navigate('/resources')
-}
-function CreateUser(){
-  setCreateUser?.(true)
-}
-function Home(){
-  navigate('/')
-}
+  const navigate = useNavigate();
+  const { userId, setUserId, setUserLogin, userLogin, setCreateUser } =
+    useContext(UserContext);
 
-return(
-  <>
-  <div className='sticky top-0 flex flex-row text-2xl text-white backdrop-blur-sm'>
-  <div className= ' hover:text-purple-500 hover:translate-x-1 px-2' onClick={Home}>Home</div>
-    {userId === -1 ?
-    <>
-    <div className= ' hover:text-purple-500 hover:translate-x-1 px-2' onClick={CreateUser}>CreateUser</div>
-    <div className= ' hover:text-purple-500 hover:translate-x-1 px-2' onClick={Login}>Login</div>
-    </>
-     :
-     <>
-    <div className= '  hover:text-purple-500 hover:translate-x-1 px-2' onClick={Logout}>Logout</div>
-    <div className= '  hover:text-purple-500 hover:translate-x-1 px-2' onClick={JobBoard}>JobBoard</div>
-    </> }
-  <div className= ' hover:text-purple-500 hover:translate-x-1 px-2' onClick={Resources}>Resourses</div>
-  </div>
-  </>
-)
+  function Login() {
+    setUserLogin?.(true);
+    console.log(userLogin);
+  }
+  function Logout() {
+    setUserId?.(-1);
+    navigate('/');
+  }
+  function CreateUser() {
+    setCreateUser?.(true);
+  }
 
+  return (
+    <div className="sticky top-0 flex flex-row text-xl text-white backdrop-blur-sm p-5">
+      <div
+        className="hover:bg-gray-100 hover:text-slate-950 px-3 py-1 mx-2 rounded-full"
+        onClick={() => navigate('/')}
+      >
+        Home
+      </div>
+      <div
+        className="hover:bg-gray-100 hover:text-slate-950 px-3 py-1 mx-2 rounded-full"
+        onClick={() => navigate('/resources')}
+      >
+        Resourses
+      </div>
+      {userId !== -1 && (
+        <>
+          <div
+            className="hover:bg-gray-100 hover:text-slate-950 px-3 py-1 mx-2 rounded-full"
+            onClick={() => navigate('/jobboard')}
+          >
+            Job Apps
+          </div>
+          <div
+            className="hover:bg-gray-100 hover:text-slate-950 px-3 py-1 mx-2 rounded-full"
+            onClick={() => alert('nothing here yet!')}
+          >
+            Interviews
+          </div>
+        </>
+      )}
+
+      {userId === -1 ? (
+        <div
+          className="hover:bg-gray-100 hover:text-slate-950 px-3 py-1 ml-auto rounded-full"
+          onClick={Login}
+        >
+          Login
+        </div>
+      ) : (
+        <div
+          className="hover:bg-gray-100 hover:text-slate-950 px-3 py-1 ml-auto rounded-full"
+          onClick={Logout}
+        >
+          Logout
+        </div>
+      )}
+
+      {/* {userId === -1 ? (
+        <>
+          <div
+            className=" hover:text-purple-500 hover:translate-x-1 px-2"
+            onClick={CreateUser}
+          >
+            CreateUser
+          </div>
+        </>
+      ) : (
+        <>
+
+        </>
+      )} */}
+    </div>
+  );
 }
 
 export default NavBar;
