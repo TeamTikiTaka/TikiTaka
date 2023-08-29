@@ -8,12 +8,19 @@ function NavBar() {
   const { userId, setUserId, setUserLogin, userLogin, setCreateUser } =
     useContext(UserContext);
 
+  function deleteCookie(cookieName:string) {
+      document.cookie = `${cookieName}=; max-age=0; path=/;`;
+  }
+  
   function Login() {
     setUserLogin?.(true);
     console.log(userLogin);
   }
   function Logout() {
     setUserId?.(-1);
+    deleteCookie('username');
+    deleteCookie('firstname');
+    deleteCookie('user_id')
     navigate('/');
   }
   function CreateUser() {
