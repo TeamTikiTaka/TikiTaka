@@ -5,6 +5,7 @@ import { JobData } from '../../types/types';
 function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
 
   const emptyForm: JobData = {
+    id: initialData.id ? initialData.id : -1,
     company: initialData.company ? initialData.company : '',
     position: initialData.position ? initialData.position : '',
     location: initialData.location ? initialData.location : '',
@@ -26,8 +27,22 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
     //TODO: POST method to DB
-    setShowModal(false);
-    setJobListChanged(true);
+    async function addData() {
+      const userId = 10; //! Change this once you figure out cookies
+      const response = await fetch(`/api/jobs/${userId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      setJobListChanged(false);
+      setShowModal(false);
+
+    }
+    addData()
+
+
   }
 
   function openRawDetails(): void {

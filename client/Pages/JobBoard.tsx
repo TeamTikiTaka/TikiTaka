@@ -8,7 +8,7 @@ function JobBoard() {
   const [jobList, setJobList] = useState<JobData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [jobListChanged, setJobListChanged] = useState(true);
-  const emptyForm = { company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
+  const emptyForm = { id: -1, company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
   const [editForm, setEditForm] = useState<JobData>(emptyForm);
 
   
@@ -49,6 +49,7 @@ function JobBoard() {
       setJobList(data);
     }
     getData();
+    console.log('Job List changed: ', jobListChanged) //! DELETE AFTER
   }, [jobListChanged])
 
 
@@ -83,6 +84,7 @@ function JobBoard() {
 
         {jobList ? jobList.map((job) => (
           <Job
+            key={job.id}
             job={job}
             setEditForm={setEditForm}
             setShowModal={setShowModal}
