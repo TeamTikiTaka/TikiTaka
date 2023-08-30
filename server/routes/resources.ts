@@ -3,15 +3,15 @@ import express from 'express';
 import { resourcesController } from '../controllers/resourcesController';
 const router = express.Router();
 
-router.post('/add', async(req:Request,res:Response)=>{
+router.post('/:userId', resourcesController.addResources, async(req:Request,res:Response)=>{
   return res.status(200).json()
 })
 
-router.get('/', async(req:Request,res:Response)=>{
-  return res.status(200).json()
+router.get('/:userId',resourcesController.getResources, async(req:Request,res:Response)=>{
+  return res.status(200).json(res.locals.rows)
 })
 
-router.delete('/delete', async(req:Request,res:Response)=>{
+router.delete('/:userId',resourcesController.deleteResources,async(req:Request,res:Response)=>{
   return res.status(200).json()
 })
 
