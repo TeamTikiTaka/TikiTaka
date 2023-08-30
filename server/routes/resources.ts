@@ -12,7 +12,6 @@ router.get('/:userId',resourcesController.getResources, async(req:Request,res:Re
 })
 
 router.delete('/:userId',resourcesController.deleteResources,async(req:Request,res:Response)=>{
-  console.log('INSIDE ROUTE')
   return res.status(200).json()
 })
 
