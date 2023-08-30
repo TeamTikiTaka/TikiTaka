@@ -106,30 +106,28 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
         <div>Loading</div>
         //TODO: add loading animation
       )}
-
-      <div className="flex m-auto ">
-        <span
-          className={`${
-            formState === 'form' && 'bg-black underline underline-offset-4'
-          } ${formState === 'textbox' && 'border-b-2 text-gray-400' } px-5 w-max grow p-3 text-center  border-x-2 border-t-2`}
-          onClick={(e) => {
-            setFormState('form');
-          }}
-        >
-          Input
-        </span>
-        <span
-          className={`${
-            formState === 'textbox' && 'bg-black underline underline-offset-4' 
-          } ${formState === 'form' && 'border-b-2 text-gray-400' } px-5 w-max grow p-3 text-center  border-x-2 border-t-2`}
-          onClick={(e) => {
-            setFormState('textbox');
-          }}
-        >
-          Parse
-        </span>
-      </div>
-
+      {formState !== 'loading' && (
+        <div className="flex m-auto ">
+          <span
+            className={`${formState === 'form' && 'bg-black underline underline-offset-4'
+              } ${formState === 'textbox' && 'border-b-2 text-gray-400'} px-5 w-max grow p-3 text-center  border-x-2 border-t-2`}
+            onClick={(e) => {
+              setFormState('form');
+            }}
+          >
+            Input
+          </span>
+          <span
+            className={`${formState === 'textbox' && 'bg-black underline underline-offset-4'
+              } ${formState === 'form' && 'border-b-2 text-gray-400'} px-5 w-max grow p-3 text-center  border-x-2 border-t-2`}
+            onClick={(e) => {
+              setFormState('textbox');
+            }}
+          >
+            Parse
+          </span>
+        </div>
+      )}
       {formState === 'form' && (
         <div className="px-10 py-5 bg-black m-auto border-x-2 border-b-2">
           <form onSubmit={handleSubmit}>
@@ -220,7 +218,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
 
       {formState === 'textbox' && (
         <div className="px-10 py-5 bg-black m-auto border-x-2 border-b-2">
-        <form className="fle w-full h-96 m-auto">
+          <form className="fle w-full h-96 m-auto">
             <textarea
               id="input"
               name="input"
