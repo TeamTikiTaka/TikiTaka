@@ -78,7 +78,7 @@ const Resources = () => {
         />
         <button
           onClick={addNewResource}
-          className="bg-blue-500 text-white px-3 py-1 rounded"
+          className="bg-blue-500 text-white px-3 py-1 rounded "
         >
           Add
         </button>
@@ -87,18 +87,18 @@ const Resources = () => {
           onClick={() => setShowDeleteModal(true)}
           className="bg-red-500 text-white px-3 py-1 rounded"
         >
-          Delete
+          Delete a Link
         </button>
       </div>
       {showDeleteModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-4 rounded shadow-md">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white">
+          <div className="bg-slate-700 p-4 rounded shadow-md">
             <div className='flex flex-col'>
             {resources.map((resource:{id:number,link:string,linkname:string,name:string}) => (
                 <button key={resource.id}
                   onClick={() => setDeletedResource(resource.id)}
                   className={`mb-2 text-left ${
-                    deletedResource === resource.id ? 'bg-red-200' : ''
+                    deletedResource === resource.id ? 'bg-red-200 bg-opacity-50' : ''
                   }`}>
                   {resource.linkname}
                 </button>
@@ -107,7 +107,7 @@ const Resources = () => {
             <div className="flex justify-end mt-4">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="text-gray-500 mr-4"
+                className="text-white mr-4"
               >
                 Cancel
               </button>
@@ -119,18 +119,9 @@ const Resources = () => {
         </div>
       )}
 
-      <div className="text-5xl text-white underline">Main Resources</div>
-      <div className="text-white flex flex-row items-center text-3xl space-x-10">
-        <Link
-          className="flex flex-row"
-          target="_blank"
-          rel="noopener noreferrer"
-          to={'https://leetcode.com'}
-        >
-          <img alt="Leetcode" />
-          Leetcode
-        </Link>
-        <Link
+      <div className="text-5xl text-white underline ">Main Resources</div>
+      <div className="text-white flex flex-row flex-wrap items-center text-3xl space-x-10 my-6">
+      <Link
           className="flex flex-row "
           target="_blank"
           rel="noopener noreferrer"
@@ -144,26 +135,44 @@ const Resources = () => {
           Google Drive
         </Link>
         <Link
-          className="flex flex-row "
+          className="flex flex-row"
           target="_blank"
           rel="noopener noreferrer"
-          to={'https://github.com'}
+          to={'https://leetcode.com/problemset/all/'}
         >
-          <img alt="Github" />
-          Github
+          <img className="w-10 h-10 p-0.5 mx-5" src='/assets/leetCode.png' alt="Leetcode" />
+          Leetcode
         </Link>
         <Link
           className="flex flex-row"
           target="_blank"
           rel="noopener noreferrer"
-          to={'https://LinkedIn.com'}
+          to={'https://www.ziprecruiter.com/'}
         >
-          <img alt="LinkedIn" />
-          LinkedIn
+          <img className="w-10 h-10 p-0.5 mx-5" src='/assets/zipRecruiter.png' alt="Leetcode" />
+          ZipRecruiter
+        </Link>
+        <Link
+          className="flex flex-row "
+          target="_blank"
+          rel="noopener noreferrer"
+          to={'https://www.indeed.com/'}
+        >
+          <img className="w-10 h-10 p-0.5 mx-5" src='/assets/Indeed.png' alt="Indeed" />
+          Indeed
+        </Link>
+        <Link
+          className="flex flex-row"
+          target="_blank"
+          rel="noopener noreferrer"
+          to={'https://www.linkedin.com/jobs/'}
+        >
+          <img className="w-10 h-10 p-0.5 mx-5" src='/assets/Linkedin.png' alt="LinkedIn Jobs" />
+          LinkedIn Jobs
         </Link>
       </div>
       <div className="text-5xl text-white underline">Other Resources</div>
-      <div className="text-white flex flex-row items-center text-3xl space-x-10">
+      <div className="text-white flex flex-row flex-wrap items-center text-3xl space-x-10 my-5">
         {resources.map((resource:{id:number,link:string,linkname:string}) => (
           <div key={resource.id}>
             <a href={resource.link.startsWith('http') ? resource.link : `http://${resource.link}`}

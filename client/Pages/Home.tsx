@@ -27,7 +27,7 @@ function Home(){
       <div className="text-4xl text-white mt-4">Git Better, Git Hired</div>
       <div className="text-1xl text-white mt-4">
         "Elevate Your Interview Game with Git Job: Your Personal Interview Tracker 
-        Keep tabs on your journey from 'Applied' to 'Hired' while mastering questions and acing that dream Engineering Interview!
+        keep tabs on your journey from 'Applied' to 'Hired' while mastering questions and acing that interview at your dream Job!
          #InterviewSuccess #GitJob #TrackAndThrive"
       </div>
       </>
@@ -37,7 +37,7 @@ function Home(){
       <div className="text-4xl text-white mt-4">You're Gitting Better, You're Gitting Hired!</div>
       <div className="text-1xl text-white mt-4">
         Another Day Another Application 
-        Lets Keep that Track Record up Buddy! Good Luck today, You're Gonna do Great!
+        Lets keep that track record up buddy! Good luck today, you're gonna do great!
          #InterviewSuccess #GitJob #TrackAndThrive
       </div>
       </>}
