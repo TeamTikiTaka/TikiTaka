@@ -36,13 +36,14 @@ try {
 },
 deleteResources: async(req:Request,res:Response,next:NextFunction)=>{
   try {
-    const{resourceName}=req.body
+    console.log('INSIDE DELETE')
+    const{id}=req.body
     const user_id:string = req.params.userId
     const queryDeleteStr: string = `
     DELETE FROM resources
-    WHERE (linkname=${resourceName} AND user_id = ${user_id})`
+    WHERE (id=${id} AND user_id = ${user_id})`
     await db.query(queryDeleteStr)
-    return next
+    return next()
   } catch (err) {
     const log = `Error occuring in resourcesController.deleteResource: ${err}`;
     const message = { err: 'Error occured on server side' };
