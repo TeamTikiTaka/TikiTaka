@@ -8,4 +8,11 @@ html {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  min-width: 800px;
 }
+
+select {
+  -webkit-appearance: none;
+
+}
+
