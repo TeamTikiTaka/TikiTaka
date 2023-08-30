@@ -1,21 +1,27 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import { JobData } from '../../types/types';
-import Job from "../Components/Job";
-import NewJob from "../Components/NewJob";
-import { useridFromCookie } from "../globalFunction";
-
+import Job from '../Components/Job';
+import NewJob from '../Components/NewJob';
+import { useridFromCookie } from '../globalFunction';
 
 function JobBoard() {
-
   const [jobList, setJobList] = useState<JobData[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [jobListChanged, setJobListChanged] = useState(true);
-  const userId = useridFromCookie()
-  const emptyForm = { id: userId, company: '', position: '', location: '', salary: '', joblink: '', status: '', notes: '' }
+  const userId = useridFromCookie();
+  const emptyForm = {
+    id: userId,
+    company: '',
+    position: '',
+    location: '',
+    salary: '',
+    joblink: '',
+    status: '',
+    notes: '',
+  };
   const [editForm, setEditForm] = useState<JobData>(emptyForm);
 
   useEffect(() => {
-
     // const sampleData = [{
     //   company: 'Apple',
     //   position: 'IT Support',
@@ -41,30 +47,50 @@ function JobBoard() {
     //   status: 'Interview',
     //   notes: 'lets go Mcdonald'
     // }]
-    console.log('Current user ID: ', userId)
-    async function getData(){
-      const response = await fetch(`/api/jobs/${userId}`)
-      const data = await response.json()
+    console.log('Current user ID: ', userId);
+    async function getData() {
+      const response = await fetch(`/api/jobs/${userId}`);
+      const data = await response.json();
       setJobList(data);
     }
     getData();
-  }, [jobListChanged])
-
-
+  }, [jobListChanged]);
 
   //TODO: add delete functionality
 
   return (
-    <>
-      <button className= 'p-2 mt-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring focus:ring-blue-300'onClick={() => {
-        setEditForm(emptyForm)
-        setShowModal(true)
-        }}>Add Job</button>
+    <div className="p-10">
+      <div className="flex items-center">
+        <span className="text-4xl text-white">My Job Applications</span>
+        <button
+          className="text-white border border-2 text-3xl w-14 h-14 rounded-lg hover:bg-white hover:text-black ml-auto"
+          onClick={() => {
+            setEditForm(emptyForm);
+            setShowModal(true);
+          }}
+        >
+          +
+        </button>
+      </div>
+
       {showModal && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-black opacity-50"></div>
-          <div className="bg-white p-6 rounded shadow-lg z-10 max-w-2xl mx-auto">
-            <NewJob setShowModal={setShowModal} setJobListChanged={setJobListChanged} initialData={editForm} />
+        <div
+          className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm"
+          onClick={() => {
+            setShowModal(false);
+          }}
+        >
+          <div
+            className="z-10 w-1/2 max-w-3xl min-w-[500px]"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <NewJob
+              setShowModal={setShowModal}
+              setJobListChanged={setJobListChanged}
+              initialData={editForm}
+            />
           </div>
         </div>
       )}
@@ -80,18 +106,19 @@ function JobBoard() {
           <span>Notes</span>
         </div>
 
-        {jobList ? jobList.map((job) => (
-          <Job
-            key={job.id}
-            job={job}
-            setEditForm={setEditForm}
-            setShowModal={setShowModal}
-          />
-        )) : null}
+        {jobList
+          ? jobList.map((job) => (
+              <Job
+                key={job.id}
+                job={job}
+                setEditForm={setEditForm}
+                setShowModal={setShowModal}
+              />
+            ))
+          : null}
       </div>
-
-    </>
-  )
+    </div>
+  );
 }
 
-export default JobBoard
+export default JobBoard;
