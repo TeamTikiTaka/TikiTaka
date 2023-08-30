@@ -5,7 +5,6 @@
     "devc": "NODE_ENV=development concurrently \"webpack serve --open\" \"nodemon server/server.ts\""
   },
   "dependencies": {
-    "dotenv": "^16.3.1",
     "@types/express": "^4.17.17",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
@@ -17,7 +16,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
-    "ts-node": "^10.9.1"
+    "react-tsparticles": "^2.12.2",
+    "ts-node": "^10.9.1",
+    "tsparticles": "^2.12.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.22.10",

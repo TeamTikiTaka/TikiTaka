@@ -8,10 +8,10 @@ function NavBar() {
   const { userId, setUserId, setUserLogin, userLogin, setCreateUser } =
     useContext(UserContext);
 
-  function deleteCookie(cookieName:string) {
-      document.cookie = `${cookieName}=; max-age=0; path=/;`;
+  function deleteCookie(cookieName: string) {
+    document.cookie = `${cookieName}=; max-age=0; path=/;`;
   }
-  
+
   function Login() {
     setUserLogin?.(true);
     console.log(userLogin);
@@ -20,7 +20,7 @@ function NavBar() {
     setUserId?.(-1);
     deleteCookie('username');
     deleteCookie('firstname');
-    deleteCookie('user_id')
+    deleteCookie('user_id');
     navigate('/');
   }
   function CreateUser() {
@@ -28,18 +28,12 @@ function NavBar() {
   }
 
   return (
-    <div className="sticky top-0 flex flex-row text-xl text-white backdrop-blur-sm p-5">
+    <div className="sticky top-0 flex flex-row text-xl text-white backdrop-blur-sm p-5 z-10">
       <div
         className="hover:bg-gray-100 hover:text-slate-950 px-3 py-1 mx-2 rounded-full"
         onClick={() => navigate('/')}
       >
         Home
-      </div>
-      <div
-        className="hover:bg-gray-100 hover:text-slate-950 px-3 py-1 mx-2 rounded-full"
-        onClick={() => navigate('/resources')}
-      >
-        Resourses
       </div>
       {userId !== -1 && (
         <>
@@ -54,6 +48,12 @@ function NavBar() {
             onClick={() => alert('nothing here yet!')}
           >
             Interviews
+          </div>
+          <div
+            className="hover:bg-gray-100 hover:text-slate-950 px-3 py-1 mx-2 rounded-full"
+            onClick={() => navigate('/resources')}
+          >
+            Resources
           </div>
         </>
       )}
