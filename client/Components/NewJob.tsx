@@ -7,7 +7,7 @@ import { useridFromCookie } from "../globalFunction";
 function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   const userId = useridFromCookie()
   const emptyForm: JobData = {
-    id: initialData.id ? initialData.id : Number(userId),
+    id: initialData.id ? initialData.id : -2,
     company: initialData.company ? initialData.company : '',
     position: initialData.position ? initialData.position : '',
     location: initialData.location ? initialData.location : '',
@@ -31,6 +31,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   function handleSubmit(event: React.ChangeEvent<HTMLFormElement>) {
     event.preventDefault();
     async function addData() {
+      console.log('adding data') //! DELETE AFTER
       const response = await fetch(`/api/jobs/${userId}`, {
         method: 'POST',
         headers: {
@@ -38,13 +39,29 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
         },
         body: JSON.stringify(formData),
       });
-      setJobListChanged(false);
+      setJobListChanged(prevState => !prevState);
       setShowModal(false);
 
     }
-    addData()
-
-
+    async function updateData() {
+      console.log('updating data') //! DELETE AFTER
+      const response = await fetch(`/api/jobs/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      setJobListChanged(prevState => !prevState);
+      setShowModal(false);
+    }
+    // Check if its a new job otherwies update data
+    if(formData.id === -2){
+      addData()
+    }
+    else {
+      updateData()
+    }
   }
 
   function openRawDetails(): void {

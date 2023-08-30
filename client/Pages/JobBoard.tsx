@@ -10,43 +10,19 @@ function JobBoard() {
   const [jobListChanged, setJobListChanged] = useState(true);
   const userId = useridFromCookie();
   const emptyForm = {
-    id: userId,
+    id: -2,
     company: '',
     position: '',
     location: '',
     salary: '',
     joblink: '',
     status: '',
-    notes: '',
+    notes: ''
   };
   const [editForm, setEditForm] = useState<JobData>(emptyForm);
 
   useEffect(() => {
-    // const sampleData = [{
-    //   company: 'Apple',
-    //   position: 'IT Support',
-    //   location: 'India',
-    //   salary: '$1000',
-    //   joblink: 'www.google.com',
-    //   status: 'applied',
-    //   notes: 'hello this is IT support'
-    // }, {
-    //   company: 'Mcdonalds',
-    //   position: 'CEO',
-    //   location: 'USA',
-    //   salary: '$1,000,000',
-    //   joblink: 'www.mcd.com',
-    //   status: 'Accepted',
-    //   notes: 'Ronald Mcdonald'
-    // }, {
-    //   company: 'CodeSmith',
-    //   position: 'Fellow',
-    //   location: 'Remote',
-    //   salary: '$50,000',
-    //   joblink: 'www.codesmith.com',
-    //   status: 'Interview',
-    //   notes: 'lets go Mcdonald'
-    // }]
+
     console.log('Current user ID: ', userId);
     async function getData() {
       const response = await fetch(`/api/jobs/${userId}`);
@@ -54,6 +30,7 @@ function JobBoard() {
       setJobList(data);
     }
     getData();
+
   }, [jobListChanged]);
 
   //TODO: add delete functionality
@@ -108,13 +85,13 @@ function JobBoard() {
 
         {jobList
           ? jobList.map((job) => (
-              <Job
-                key={job.id}
-                job={job}
-                setEditForm={setEditForm}
-                setShowModal={setShowModal}
-              />
-            ))
+            <Job
+              key={job.id}
+              job={job}
+              setEditForm={setEditForm}
+              setShowModal={setShowModal}
+            />
+          ))
           : null}
       </div>
     </div>

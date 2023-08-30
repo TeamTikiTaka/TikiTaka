@@ -17,7 +17,8 @@ export const jobsController: jobsController = {
       const queryStr: string = `
       SELECT *
       FROM applications
-      WHERE applications.user_id = ${userId}`;
+      WHERE applications.user_id = ${userId}
+      ORDER BY id ASC`;
       const query = await db.query(queryStr);
       res.locals.rows = query.rows;
       return next();
@@ -69,13 +70,13 @@ export const jobsController: jobsController = {
   
   updateJobs: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const {job_id} = req.body;
+      const {id} = req.body;
       for(const column in req.body){
-        if(column !== 'job_id'){
+        if(column !== 'id'){
           const queryUpdateStr: string = `
           UPDATE applications
           SET ${column} = '${req.body[column]}'
-          WHERE id = ${job_id}`
+          WHERE id = ${id}`
           await db.query(queryUpdateStr);
         }
       }
