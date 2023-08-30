@@ -1,0 +1,11 @@
+# General
+.DS_Store
+
+# dependencies
+node_modules/
+
+# output from webpack
+dist
+
+#dotenv
+.env
