@@ -16,7 +16,7 @@ function JobBoard() {
     location: '',
     salary: '',
     joblink: '',
-    status: 'Applied',
+    status: '',
     notes: ''
   };
   const [editForm, setEditForm] = useState<JobData>(emptyForm);

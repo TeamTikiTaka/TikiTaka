@@ -12,7 +12,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
     location: initialData.location ? initialData.location : '',
     salary: initialData.salary ? initialData.salary : '',
     joblink: initialData.joblink ? initialData.joblink : '',
-    status: initialData.status ? initialData.status : 'Applied',
+    status: initialData.status ? initialData.status : 'Select Status',
     notes: initialData.notes ? initialData.notes : '',
   };
   const [formData, setFormData] = useState<JobData>(emptyForm);
@@ -110,7 +110,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
       <div className="w-5/6 flex m-auto">
         <span
           className={`rounded-t-lg ${
-            formState === 'form' && 'bg-gray-700' 
+            formState === 'form' && 'bg-gray-700'
           } px-5 w-max grow p-3 text-center`}
           onClick={(e) => {
             setFormState('form');
@@ -132,9 +132,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
 
       {formState === 'form' && (
         <div className="w-5/6 p-5 bg-gray-700 m-auto rounded-b-lg">
-          <form
-            onSubmit={handleSubmit}
-          >
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               id="company"
@@ -186,23 +184,16 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
             />
 
             <div>
-              <label
-                htmlFor="status"
-                className="mt-4 block text-l font-medium text-white"
-              >
-                Status
-              </label>
               <select
                 id="status"
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
                 className="p-1 mt-4 border-b-2 bg-gray-700 w-full focus:outline-none"
-                >
+              >
+                <option value="Select Status" disabled>Select Status</option>
                 <option value="Applied">Applied</option>
-                <option value="Interview">
-                  Interview In Progress
-                </option>
+                <option value="Interview">Interview</option>
                 <option value="Rejected">Rejected</option>
                 <option value="Offer">Offer</option>
               </select>
@@ -220,7 +211,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
             <button
               type="submit"
               className="w-28 py-2 mt-4 bg-slate-950 m-auto rounded-full hover:bg-gray-100 hover:text-slate-950"
-              >
+            >
               Submit
             </button>
           </form>
