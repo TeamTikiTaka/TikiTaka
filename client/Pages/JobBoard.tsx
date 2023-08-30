@@ -52,13 +52,13 @@ function JobBoard() {
 
       {showModal && (
         <div
-          className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm"
+          className="fixed inset-0 z-50 backdrop-blur-sm"
           onClick={() => {
             setShowModal(false);
           }}
         >
           <div
-            className="z-10 w-1/2 max-w-3xl min-w-[500px]"
+            className="relative flex flex-col items-center z-10 w-1/2 max-w-3xl min-w-[500px] mt-48 m-auto" 
             onClick={(e) => {
               e.stopPropagation();
             }}
