@@ -7,7 +7,8 @@ const Resources = () => {
   const [addResourceName, setAddResourceName] = useState('');
   const [resources, setResources] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deletedResource, setDeletedResource]= useState('')
+  const [deletedResource, setDeletedResource]= useState(-1)
+  const [reloadPage, setReloadpage] = useState(false)
   const userId = useridFromCookie();
 
   const addNewResource = async () => {
@@ -19,6 +20,8 @@ const Resources = () => {
         },
         body: JSON.stringify({ link: addResource, name: addResourceName }),
       });
+      setReloadpage(prevState => !prevState); 
+
     } catch (error) {
       console.log(error);
     }
@@ -41,8 +44,10 @@ const Resources = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ resourceName: deletedResource }),
+        body: JSON.stringify({ id: deletedResource }),
       });
+      setShowDeleteModal(false);
+      setReloadpage(prevState => !prevState); 
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +55,7 @@ const Resources = () => {
 
   useEffect(() => {
     fetchResources();
-  }, []);
+  }, [reloadPage]);
 
   return (
     <div className="flex flex-col items-center justify-center ">
@@ -91,9 +96,9 @@ const Resources = () => {
             <div className='flex flex-col'>
             {resources.map((resource:{id:number,link:string,linkname:string,name:string}) => (
                 <button key={resource.id}
-                  onClick={() => setDeletedResource(resource.linkname)}
+                  onClick={() => setDeletedResource(resource.id)}
                   className={`mb-2 text-left ${
-                    deletedResource === resource.linkname ? 'bg-red-200' : ''
+                    deletedResource === resource.id ? 'bg-red-200' : ''
                   }`}>
                   {resource.linkname}
                 </button>
