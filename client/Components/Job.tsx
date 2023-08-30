@@ -49,10 +49,10 @@ function Job({
 
   return (
     <div className="flex py-4 border-b text-white backdrop-blur-sm bg-gray-500 bg-opacity-5">
-      <div className="w-[12.5%] ml-2">{job.company}</div>
-      <div className="w-[12.5%]">{job.position}</div>
-      <div className="w-[12.5%]">{job.location}</div>
-      <div className="w-[12.5%]">{job.salary}</div>
+      <div className="w-[12.5%] ml-2 truncate">{job.company}</div>
+      <div className="w-[12.5%] truncate">{job.position}</div>
+      <div className="w-[12.5%] truncate">{job.location}</div>
+      <div className="w-[12.5%] truncate">{job.salary}</div>
       <div className="w-[12.5%] underline">
         <img
           className="w-5 h-5"
@@ -65,8 +65,8 @@ function Job({
           Link
         </a> */}
       </div>
-      <div className={`w-[12.5%] ${statusColor(job.status)}`}>{job.status}</div>
-      <div className="w-[12.5%]">{job.notes}</div>
+      <div className={`w-[12.5%] ${statusColor(job.status)} truncate`}>{job.status}</div>
+      <div className="w-[12.5%] truncate">{job.notes}</div>
       <div className="w-[12.5%] flex place-content-around">
         <img
           className="w-5 h-5 p-0.5 "

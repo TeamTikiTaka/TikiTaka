@@ -36,7 +36,6 @@ try {
 },
 deleteResources: async(req:Request,res:Response,next:NextFunction)=>{
   try {
-    console.log('INSIDE DELETE')
     const{id}=req.body
     const user_id:string = req.params.userId
     const queryDeleteStr: string = `
