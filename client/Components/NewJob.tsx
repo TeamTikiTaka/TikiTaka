@@ -101,7 +101,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   }
 
   return (
-    <div className="bg-gray-600 p-6 rounded-md text-white w-full">
+    <div className="bg-gray-600 py-10 px-5 rounded-md text-white w-full">
       {formState === 'loading' && (
         <div>Loading</div>
         //TODO: add loading animation
@@ -132,96 +132,98 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
 
       {formState === 'form' && (
         <div className="w-5/6 p-5 bg-gray-700 m-auto rounded-b-lg">
-          <input
-            type="text"
-            id="company"
-            name="company"
-            value={formData.company}
-            onChange={handleChange}
-            placeholder="Company Name"
-            className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
-          />
-
-          <input
-            type="text"
-            id="position"
-            name="position"
-            value={formData.position}
-            onChange={handleChange}
-            placeholder="Job Title"
-            className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
-          />
-
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            placeholder="Location"
-            className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
-          />
-
-          <input
-            type="text"
-            id="salary"
-            name="salary"
-            value={formData.salary}
-            onChange={handleChange}
-            placeholder="Salary"
-            className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
-          />
-
-          <input
-            type="text"
-            id="joblink"
-            name="joblink"
-            value={formData.joblink}
-            onChange={handleChange}
-            placeholder="Job Link"
-            className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
-          />
-
-          <div>
-            <label
-              htmlFor="status"
-              className="block text-sm font-medium text-white"
-            >
-              Status
-            </label>
-            <select
-              id="status"
-              name="status"
-              value={formData.status}
+          <form
+            onSubmit={handleSubmit}
+          >
+            <input
+              type="text"
+              id="company"
+              name="company"
+              value={formData.company}
               onChange={handleChange}
+              placeholder="Company Name"
               className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
-            >
-              <option value="Applied">Applied</option>
-              <option value="Interview In Progress">
-                Interview In Progress
-              </option>
-              <option value="Rejected">Rejected</option>
-              <option value="Offer">Offer</option>
-            </select>
-          </div>
+            />
 
-          <textarea
-            id="notes"
-            name="notes"
-            value={formData.notes}
-            onChange={() => handleChange}
-            placeholder="Notes"
-            className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
-          />
+            <input
+              type="text"
+              id="position"
+              name="position"
+              value={formData.position}
+              onChange={handleChange}
+              placeholder="Job Title"
+              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+            />
 
-          <div className="flex justify-between items-center">
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              placeholder="Location"
+              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+            />
+
+            <input
+              type="text"
+              id="salary"
+              name="salary"
+              value={formData.salary}
+              onChange={handleChange}
+              placeholder="Salary"
+              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+            />
+
+            <input
+              type="text"
+              id="joblink"
+              name="joblink"
+              value={formData.joblink}
+              onChange={handleChange}
+              placeholder="Job Link"
+              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+            />
+
+            <div>
+              <label
+                htmlFor="status"
+                className="block text-sm font-medium text-white"
+              >
+                Status
+              </label>
+              <select
+                id="status"
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+                className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              >
+                <option value="Applied">Applied</option>
+                <option value="Interview In Progress">
+                  Interview In Progress
+                </option>
+                <option value="Rejected">Rejected</option>
+                <option value="Offer">Offer</option>
+              </select>
+            </div>
+
+            <textarea
+              id="notes"
+              name="notes"
+              value={formData.notes}
+              onChange={() => handleChange}
+              placeholder="Notes"
+              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+            />
+
             <button
-              onClick={() => {}}
+              type="submit"
               className="w-28 py-2 mt-4 bg-slate-950 m-auto rounded-full hover:bg-gray-100 hover:text-slate-950"
-            >
+              >
               Submit
             </button>
-          </div>
+          </form>
         </div>
       )}
 
@@ -254,7 +256,6 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
       {formState === 'form' && (
         <div>
           <div></div>
-          <form onSubmit={handleSubmit} className="bg-white p-6 rounded-md shadow-md space-y-4">
             <div>
               <label htmlFor="company" className="block text-sm font-medium text-gray-700">Company Name</label>
               <input
