@@ -23,9 +23,9 @@ function Job({
       </div>
       <div className="w-[12.5%]">{job.status}</div>
       <div className="w-[12.5%]">{job.notes}</div>
-      <div className="w-[12.5%] flex">
+      <div className="w-[12.5%] flex place-content-around">
         <img
-          className="w-5 h-5 p-0.5 mx-5"
+          className="w-5 h-5 p-0.5 "
           src="/assets/pen.png"
           onClick={() => {
             setEditForm(job);
@@ -33,7 +33,7 @@ function Job({
           }}
         ></img>
         <img
-          className="w-5 h-5  mx-5"
+          className="w-5 h-5 "
           src="/assets/delete.png"
           onClick={() => {
             setShowModal(true);
