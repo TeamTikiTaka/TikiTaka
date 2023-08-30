@@ -101,7 +101,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   }
 
   return (
-    <div className="bg-gray-600 py-10 px-5 rounded-md text-white w-full">
+    <div className="bg-black border border-2 border-white py-10 px-4 rounded-md text-white w-full">
       {formState === 'loading' && (
         <div>Loading</div>
         //TODO: add loading animation
@@ -110,7 +110,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
       <div className="w-5/6 flex m-auto">
         <span
           className={`rounded-t-lg ${
-            formState === 'form' && 'bg-gray-700'
+            formState === 'form' && 'bg-gray-700' 
           } px-5 w-max grow p-3 text-center`}
           onClick={(e) => {
             setFormState('form');
@@ -142,7 +142,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.company}
               onChange={handleChange}
               placeholder="Company Name"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-gray-700 w-full focus:outline-none"
             />
 
             <input
@@ -152,7 +152,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.position}
               onChange={handleChange}
               placeholder="Job Title"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-gray-700 w-full focus:outline-none"
             />
 
             <input
@@ -162,7 +162,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.location}
               onChange={handleChange}
               placeholder="Location"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-gray-700 w-full focus:outline-none"
             />
 
             <input
@@ -172,7 +172,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.salary}
               onChange={handleChange}
               placeholder="Salary"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-gray-700 w-full focus:outline-none"
             />
 
             <input
@@ -182,13 +182,13 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.joblink}
               onChange={handleChange}
               placeholder="Job Link"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-gray-700 w-full focus:outline-none"
             />
 
             <div>
               <label
                 htmlFor="status"
-                className="block text-sm font-medium text-white"
+                className="mt-4 block text-l font-medium text-white"
               >
                 Status
               </label>
@@ -197,10 +197,10 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
-              >
+                className="p-1 mt-4 border-b-2 bg-gray-700 w-full focus:outline-none"
+                >
                 <option value="Applied">Applied</option>
-                <option value="Interview In Progress">
+                <option value="Interview">
                   Interview In Progress
                 </option>
                 <option value="Rejected">Rejected</option>
@@ -214,7 +214,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.notes}
               onChange={() => handleChange}
               placeholder="Notes"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-gray-700 w-full focus:outline-none"
             />
 
             <button

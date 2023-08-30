@@ -35,7 +35,7 @@ function Job({
   const statusColor = (status: string) => {
     switch (status) {
       case 'Applied': return 'text-blue-500';
-      case 'Interview In Progress': return 'text-yellow-500';
+      case 'Interview': return 'text-yellow-500';
       case 'Rejected': return 'text-red-500';
       case 'Offer': return 'text-green-500';
       default: return 'text-gray-500';
@@ -43,14 +43,14 @@ function Job({
   };
 
   return (
-    <div className="flex py-4 border-b text-white">
-      <div className="w-[12.5%]">{job.company}</div>
+    <div className="flex py-4 border-b text-white backdrop-blur-sm bg-gray-500 bg-opacity-5">
+      <div className="w-[12.5%] ml-2">{job.company}</div>
       <div className="w-[12.5%]">{job.position}</div>
       <div className="w-[12.5%]">{job.location}</div>
       <div className="w-[12.5%]">{job.salary}</div>
-      <div className="w-[12.5%]">
+      <div className="w-[12.5%] underline">
         <a href={job.joblink} target="_blank" rel="noopener noreferrer">
-          {job.joblink}
+          Link
         </a>
       </div>
       <div className={`w-[12.5%] ${statusColor(job.status)}`}>{job.status}</div>

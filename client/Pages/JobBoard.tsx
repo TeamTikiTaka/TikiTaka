@@ -72,15 +72,15 @@ function JobBoard() {
         </div>
       )}
 
-      <div className="container mx-auto mt-10 ">
-        <div className="grid grid-cols-9 gap-4 mb-4 p-4 border-b-2 text-center font-bold text-white">
-          <span>Company</span>
-          <span>Position</span>
-          <span>Location</span>
-          <span>Salary</span>
-          <span>Job Link</span>
-          <span>Status</span>
-          <span>Notes</span>
+      <div className="w-full mt-10 ">
+        <div className="flex py-4 border-b-2 font-bold text-white">
+          <span className="w-[12.5%] ml-2">Company</span>
+          <span className="w-[12.5%]">Position</span>
+          <span className="w-[12.5%]">Location</span>
+          <span className="w-[12.5%]">Salary</span>
+          <span className="w-[12.5%]">Job Link</span>
+          <span className="w-[12.5%]">Status</span>
+          <span className="w-[12.5%]">Notes</span>
         </div>
 
         {jobList
