@@ -163,7 +163,7 @@ function Login() {
                 <input
                   type="name"
                   onChange={(e) => {
-                    setUsername(e.target.value);
+                    setFirstname(e.target.value);
                   }}
                   className="m-2 px-4 py-2 bg-opacity-70 bg-gray-800 focus:outline-none rounded-md focus:ring-white focus:ring-1"
                   placeholder="Name"
