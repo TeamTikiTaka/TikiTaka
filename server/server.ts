@@ -1,5 +1,6 @@
 import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
+import path from 'path';
 
 const bcrypt = require('bcrypt')
 const cookieParser = require('cookie-parser')
@@ -11,6 +12,8 @@ app.use(express.json());
 const userRouter = require('./routes/user')
 const openaiRouter = require('./routes/openai')
 const jobRouter = require('./routes/jobs')
+
+app.use('/assets', express.static(path.resolve(__dirname, '../client/assets/')));
 
 
 app.use('/api/login', userRouter)
