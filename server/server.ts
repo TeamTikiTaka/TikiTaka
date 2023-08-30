@@ -12,7 +12,7 @@ app.use(express.json());
 const userRouter = require('./routes/user')
 const openaiRouter = require('./routes/openai')
 const jobRouter = require('./routes/jobs')
-
+const resourcesRouter=require('./routes/resources')
 app.use('/assets', express.static(path.resolve(__dirname, '../client/assets/')));
 
 
@@ -20,6 +20,7 @@ app.use('/api/login', userRouter)
 app.use('/api/jobs', jobRouter)
 app.use('/api/login', userRouter)
 app.use('/api/openai', openaiRouter)
+app.use('/api/resources',resourcesRouter)
 
 app.get('/', (req,res) => {
   return res.sendFile('../client/index.html');

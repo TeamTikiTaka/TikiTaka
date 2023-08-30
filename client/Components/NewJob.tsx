@@ -12,7 +12,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
     location: initialData.location ? initialData.location : '',
     salary: initialData.salary ? initialData.salary : '',
     joblink: initialData.joblink ? initialData.joblink : '',
-    status: initialData.status ? initialData.status : 'Applied',
+    status: initialData.status ? initialData.status : 'Select Status',
     notes: initialData.notes ? initialData.notes : '',
   };
   const [formData, setFormData] = useState<JobData>(emptyForm);
@@ -20,7 +20,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   const [aiInput, setAiInput] = useState('');
 
   function handleChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -101,40 +101,36 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   }
 
   return (
-    <div className="bg-gray-600 py-10 px-5 rounded-md text-white w-full">
+    <div className="bg-black rounded-md text-white w-full">
       {formState === 'loading' && (
         <div>Loading</div>
         //TODO: add loading animation
       )}
-
-      <div className="w-5/6 flex m-auto">
-        <span
-          className={`rounded-t-lg ${
-            formState === 'form' && 'bg-gray-700'
-          } px-5 w-max grow p-3 text-center`}
-          onClick={(e) => {
-            setFormState('form');
-          }}
-        >
-          Input
-        </span>
-        <span
-          className={`rounded-t-lg ${
-            formState === 'textbox' && 'bg-gray-700'
-          } px-5 w-max grow p-3 text-center`}
-          onClick={(e) => {
-            setFormState('textbox');
-          }}
-        >
-          Parse
-        </span>
-      </div>
-
-      {formState === 'form' && (
-        <div className="w-5/6 p-5 bg-gray-700 m-auto rounded-b-lg">
-          <form
-            onSubmit={handleSubmit}
+      {formState !== 'loading' && (
+        <div className="flex m-auto ">
+          <span
+            className={`${formState === 'form' && 'bg-black underline underline-offset-4'
+              } ${formState === 'textbox' && 'border-b-2 text-gray-400'} px-5 w-max grow p-3 text-center  border-x-2 border-t-2`}
+            onClick={(e) => {
+              setFormState('form');
+            }}
           >
+            Input
+          </span>
+          <span
+            className={`${formState === 'textbox' && 'bg-black underline underline-offset-4'
+              } ${formState === 'form' && 'border-b-2 text-gray-400'} px-5 w-max grow p-3 text-center  border-x-2 border-t-2`}
+            onClick={(e) => {
+              setFormState('textbox');
+            }}
+          >
+            Parse
+          </span>
+        </div>
+      )}
+      {formState === 'form' && (
+        <div className="px-10 py-5 bg-black m-auto border-x-2 border-b-2">
+          <form onSubmit={handleSubmit}>
             <input
               type="text"
               id="company"
@@ -142,7 +138,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.company}
               onChange={handleChange}
               placeholder="Company Name"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-black w-full focus:outline-none"
             />
 
             <input
@@ -152,7 +148,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.position}
               onChange={handleChange}
               placeholder="Job Title"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-black w-full focus:outline-none"
             />
 
             <input
@@ -162,7 +158,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.location}
               onChange={handleChange}
               placeholder="Location"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-black w-full focus:outline-none"
             />
 
             <input
@@ -172,7 +168,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.salary}
               onChange={handleChange}
               placeholder="Salary"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-black w-full focus:outline-none"
             />
 
             <input
@@ -182,27 +178,20 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               value={formData.joblink}
               onChange={handleChange}
               placeholder="Job Link"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-black w-full focus:outline-none"
             />
 
             <div>
-              <label
-                htmlFor="status"
-                className="block text-sm font-medium text-white"
-              >
-                Status
-              </label>
               <select
                 id="status"
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+                className="p-1 mt-4 border-b-2 bg-black w-full focus:outline-none"
               >
+                <option value="Select Status" disabled>Select Status</option>
                 <option value="Applied">Applied</option>
-                <option value="Interview In Progress">
-                  Interview In Progress
-                </option>
+                <option value="Interview">Interview</option>
                 <option value="Rejected">Rejected</option>
                 <option value="Offer">Offer</option>
               </select>
@@ -212,15 +201,15 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               id="notes"
               name="notes"
               value={formData.notes}
-              onChange={() => handleChange}
+              onChange={handleChange}
               placeholder="Notes"
-              className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
+              className="p-1 mt-4 border-b-2 bg-black w-full focus:outline-none"
             />
 
             <button
               type="submit"
-              className="w-28 py-2 mt-4 bg-slate-950 m-auto rounded-full hover:bg-gray-100 hover:text-slate-950"
-              >
+              className="w-28 py-2 mt-4 bg-slate-950 m-auto rounded-full border-2 hover:bg-gray-100 hover:text-slate-950"
+            >
               Submit
             </button>
           </form>
@@ -228,7 +217,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
       )}
 
       {formState === 'textbox' && (
-        <div className="w-5/6 p-5 bg-gray-700 m-auto rounded-b-lg">
+        <div className="px-10 py-5 bg-black m-auto border-x-2 border-b-2">
           <form className="fle w-full h-96 m-auto">
             <textarea
               id="input"
@@ -243,7 +232,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               <button
                 type="submit"
                 onClick={processRawDetails}
-                className="w-28 py-2 mt-4 bg-slate-950 m-auto rounded-full hover:bg-gray-100 hover:text-slate-950"
+                className="w-28 py-2 mt-4 bg-slate-950 m-auto rounded-full hover:bg-gray-100 hover:text-slate-950 border-2"
               >
                 Parse Data
               </button>
