@@ -2,7 +2,6 @@ import React from 'react';
 import { JobData } from '../../types/types';
 import { useridFromCookie } from '../globalFunction';
 
-
 function Job({
   job,
   setEditForm,
@@ -12,33 +11,39 @@ function Job({
   job: JobData;
   setEditForm(value: JobData): void;
   setShowModal(value: boolean): void;
-  setJobListChanged: (value: boolean | ((prevState: boolean) => boolean)) => void;
+  setJobListChanged: (
+    value: boolean | ((prevState: boolean) => boolean),
+  ) => void;
 }) {
-
   const userId = useridFromCookie();
-  function deleteJob(){
+  function deleteJob() {
     // DELETE FETCH
     // setJobListChanged
-    async function deleteRequest(){
+    async function deleteRequest() {
       await fetch(`/api/jobs/${userId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({id:job.id}),
+        body: JSON.stringify({ id: job.id }),
       });
       setJobListChanged((prevState) => !prevState);
     }
-    deleteRequest()
+    deleteRequest();
   }
 
   const statusColor = (status: string) => {
     switch (status) {
-      case 'Applied': return 'text-blue-500';
-      case 'Interview': return 'text-yellow-500';
-      case 'Rejected': return 'text-red-500';
-      case 'Offer': return 'text-green-500';
-      default: return 'text-gray-500';
+      case 'Applied':
+        return 'text-blue-500';
+      case 'Interview':
+        return 'text-yellow-500';
+      case 'Rejected':
+        return 'text-red-500';
+      case 'Offer':
+        return 'text-green-500';
+      default:
+        return 'text-gray-500';
     }
   };
 
@@ -49,9 +54,16 @@ function Job({
       <div className="w-[12.5%]">{job.location}</div>
       <div className="w-[12.5%]">{job.salary}</div>
       <div className="w-[12.5%] underline">
-        <a href={job.joblink} target="_blank" rel="noopener noreferrer">
+        <img
+          className="w-5 h-5"
+          src="/assets/link.png"
+          onClick={() => {
+            window.open(`${job.joblink}`, '_blank')
+          }}
+        ></img>
+        {/* <a href={job.joblink} target="_blank" rel="noopener noreferrer">
           Link
-        </a>
+        </a> */}
       </div>
       <div className={`w-[12.5%] ${statusColor(job.status)}`}>{job.status}</div>
       <div className="w-[12.5%]">{job.notes}</div>
