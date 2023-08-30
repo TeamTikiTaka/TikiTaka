@@ -12,7 +12,7 @@ function CreateUser() {
 
   useEffect(() => {
     setAllInputsFilled(
-      username !== '' && password !== '' && confirmPassword === password,
+      name !== '' && username !== '' && password !== '' && confirmPassword === password,
     );
   }, [name, username, password, confirmPassword]);
 
@@ -23,7 +23,7 @@ function CreateUser() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username: username, password: password }),
+        body: JSON.stringify({ username: username, password: password,firstname:name }),
       });
       const data = await res.json();
       
