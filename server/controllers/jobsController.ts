@@ -51,12 +51,12 @@ export const jobsController: jobsController = {
 
   deleteJobs: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const {job_id} = req.body;
+      const {id} = req.body;
       const user_id: string = req.params.userId;
 
       const queryDeleteStr: string = `
       DELETE FROM applications
-      WHERE (id = ${job_id} AND user_id = ${user_id})`;
+      WHERE (id = ${id} AND user_id = ${user_id})`;
 
       await db.query(queryDeleteStr);
       return next();

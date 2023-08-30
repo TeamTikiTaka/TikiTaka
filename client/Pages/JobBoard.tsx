@@ -16,7 +16,7 @@ function JobBoard() {
     location: '',
     salary: '',
     joblink: '',
-    status: '',
+    status: 'Applied',
     notes: ''
   };
   const [editForm, setEditForm] = useState<JobData>(emptyForm);
@@ -33,7 +33,12 @@ function JobBoard() {
 
   }, [jobListChanged]);
 
-  //TODO: add delete functionality
+  // function deleteJob(event: React.ChangeEvent<HTMLSelectElement>){
+
+  //   async function deleteRequest(){
+
+  //   }
+  // }
 
   return (
     <div className="p-10">
@@ -90,6 +95,7 @@ function JobBoard() {
               job={job}
               setEditForm={setEditForm}
               setShowModal={setShowModal}
+              setJobListChanged={setJobListChanged}
             />
           ))
           : null}
