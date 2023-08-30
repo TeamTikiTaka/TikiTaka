@@ -20,7 +20,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   const [aiInput, setAiInput] = useState('');
 
   function handleChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -106,29 +106,28 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
         <div>Loading</div>
         //TODO: add loading animation
       )}
-
-      <div className="w-5/6 flex m-auto">
-        <span
-          className={`rounded-t-lg ${
-            formState === 'form' && 'bg-gray-700'
-          } px-5 w-max grow p-3 text-center`}
-          onClick={(e) => {
-            setFormState('form');
-          }}
-        >
-          Input
-        </span>
-        <span
-          className={`rounded-t-lg ${
-            formState === 'textbox' && 'bg-gray-700'
-          } px-5 w-max grow p-3 text-center`}
-          onClick={(e) => {
-            setFormState('textbox');
-          }}
-        >
-          Parse
-        </span>
-      </div>
+      {(formState === 'form' || formState === 'textbox') &&
+        <div className="w-5/6 flex m-auto">
+          <span
+            className={`rounded-t-lg ${formState === 'form' && 'bg-gray-700'
+              } px-5 w-max grow p-3 text-center`}
+            onClick={(e) => {
+              setFormState('form');
+            }}
+          >
+            Input
+          </span>
+          <span
+            className={`rounded-t-lg ${formState === 'textbox' && 'bg-gray-700'
+              } px-5 w-max grow p-3 text-center`}
+            onClick={(e) => {
+              setFormState('textbox');
+            }}
+          >
+            Parse
+          </span>
+        </div>
+      }
 
       {formState === 'form' && (
         <div className="w-5/6 p-5 bg-gray-700 m-auto rounded-b-lg">
@@ -212,7 +211,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               id="notes"
               name="notes"
               value={formData.notes}
-              onChange={() => handleChange}
+              onChange={handleChange}
               placeholder="Notes"
               className="mt-2 p-2 bg-gray-900 focus:outline-none rounded-md focus:ring-white focus:ring-1 w-full"
             />
@@ -220,7 +219,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
             <button
               type="submit"
               className="w-28 py-2 mt-4 bg-slate-950 m-auto rounded-full hover:bg-gray-100 hover:text-slate-950"
-              >
+            >
               Submit
             </button>
           </form>

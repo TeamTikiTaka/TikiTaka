@@ -33,8 +33,6 @@ function JobBoard() {
 
   }, [jobListChanged]);
 
-
-
   return (
     <div className="p-10">
       <div className="flex items-center">
