@@ -11,7 +11,7 @@ export type JobData = {
 
 export type NewJobType = {
   setShowModal: (value: boolean) => void;
-  setJobListChanged: (value: boolean) => void;
+  setJobListChanged: (value: boolean | ((prevState: boolean) => boolean)) => void;
   initialData: JobData;
 };
 
