@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useridFromCookie } from '../globalFunction';
 
 const Resources = () => {
   const [addResource, setAddResource] = useState('');
@@ -7,10 +8,11 @@ const Resources = () => {
   const [resources, setResources] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletedResource, setDeletedResource]= useState('')
+  const userId = useridFromCookie();
 
   const addNewResource = async () => {
     try {
-      const res = await fetch('/api/resource/add', {
+       await fetch(`/api/resources/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +26,7 @@ const Resources = () => {
 
   const fetchResources = async () => {
     try {
-      const res = await fetch('/api/resources/{userid}'); // Replace with your backend endpoint
+      const res = await fetch(`/api/resources/${userId}`); // Replace with your backend endpoint
       const data = await res.json();
       setResources(data);
     } catch (error) {
@@ -34,7 +36,7 @@ const Resources = () => {
 
   const deletebutton = async () => {
     try {
-      await fetch('/api/resources/delete', {
+      await fetch(`/api/resources/${userId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -49,23 +51,6 @@ const Resources = () => {
   useEffect(() => {
     fetchResources();
   }, []);
-
-  const resourcess = [
-    {
-      link: 'https://example.com',
-      name: 'Nitesh',
-    },
-    {
-      link: 'https://example.com',
-      name: 'Tommy',
-    },
-    {
-      link: 'https://example.com',
-      name: 'Kevin',
-    },
-    // ... other resources
-  ];
-
 
   return (
     <div className="flex flex-col items-center justify-center ">
@@ -104,19 +89,15 @@ const Resources = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded shadow-md">
             <div className='flex flex-col'>
-            {resourcess.map(
-              (resource: { link: string; name: string }, index: number) => (
-                <button
-                  key={index}
-                  onClick={() => setDeletedResource(resource.name)}
+            {resources.map((resource:{id:number,link:string,linkname:string,name:string}) => (
+                <button key={resource.id}
+                  onClick={() => setDeletedResource(resource.linkname)}
                   className={`mb-2 text-left ${
-                    deletedResource === resource.name ? 'bg-gray-200' : ''
-                  }`}
-                >
-                  {resource.name}
+                    deletedResource === resource.linkname ? 'bg-red-200' : ''
+                  }`}>
+                  {resource.linkname}
                 </button>
-              ),
-            )}
+              ))}
             </div>
             <div className="flex justify-end mt-4">
               <button
@@ -178,10 +159,11 @@ const Resources = () => {
       </div>
       <div className="text-5xl text-white underline">Other Resources</div>
       <div className="text-white flex flex-row items-center text-3xl space-x-10">
-        {resourcess.map((resource, index) => (
-          <div key={index}>
-            <a href={resource.link} target="_blank" rel="noopener noreferrer">
-              {resource.name}
+        {resources.map((resource:{id:number,link:string,linkname:string}) => (
+          <div key={resource.id}>
+            <a href={resource.link.startsWith('http') ? resource.link : `http://${resource.link}`}
+             target="_blank" rel="noopener noreferrer">
+              {resource.linkname}
             </a>
           </div>
         ))}
