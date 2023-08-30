@@ -20,7 +20,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
   const [aiInput, setAiInput] = useState('');
 
   function handleChange(
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -203,7 +203,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
               id="notes"
               name="notes"
               value={formData.notes}
-              onChange={(e) => handleChange}
+              onChange={handleChange}
               placeholder="Notes"
               className="p-1 mt-4 border-b-2 bg-black w-full focus:outline-none"
             />
