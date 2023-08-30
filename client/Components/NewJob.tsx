@@ -12,7 +12,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
     location: initialData.location ? initialData.location : '',
     salary: initialData.salary ? initialData.salary : '',
     joblink: initialData.joblink ? initialData.joblink : '',
-    status: initialData.status ? initialData.status : '',
+    status: initialData.status ? initialData.status : 'Applied',
     notes: initialData.notes ? initialData.notes : '',
   };
   const [formData, setFormData] = useState<JobData>(emptyForm);
@@ -30,7 +30,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
     event.preventDefault();
     async function addData() {
       console.log('adding data'); //! DELETE AFTER
-      const response = await fetch(`/api/jobs/${userId}`, {
+      await fetch(`/api/jobs/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ function NewJob({ setShowModal, setJobListChanged, initialData }: NewJobType) {
     }
     async function updateData() {
       console.log('updating data'); //! DELETE AFTER
-      const response = await fetch(`/api/jobs/${userId}`, {
+      await fetch(`/api/jobs/${userId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

@@ -16,7 +16,7 @@ function JobBoard() {
     location: '',
     salary: '',
     joblink: '',
-    status: '',
+    status: 'Applied',
     notes: ''
   };
   const [editForm, setEditForm] = useState<JobData>(emptyForm);
@@ -33,7 +33,7 @@ function JobBoard() {
 
   }, [jobListChanged]);
 
-  //TODO: add delete functionality
+
 
   return (
     <div className="p-10">
@@ -73,14 +73,14 @@ function JobBoard() {
       )}
 
       <div className="container mx-auto mt-10 ">
-        <div className="flex border-b-2 font-bold text-white">
-          <span className='w-[12.5%]'>Company</span>
-          <span className='w-[12.5%]'>Position</span>
-          <span className='w-[12.5%]'>Location</span>
-          <span className='w-[12.5%]'>Salary</span>
-          <span className='w-[12.5%]'>Job Link</span>
-          <span className='w-[12.5%]'>Status</span>
-          <span className='w-[12.5%]'>Notes</span>
+        <div className="grid grid-cols-9 gap-4 mb-4 p-4 border-b-2 text-center font-bold text-white">
+          <span>Company</span>
+          <span>Position</span>
+          <span>Location</span>
+          <span>Salary</span>
+          <span>Job Link</span>
+          <span>Status</span>
+          <span>Notes</span>
         </div>
 
         {jobList
@@ -90,6 +90,7 @@ function JobBoard() {
               job={job}
               setEditForm={setEditForm}
               setShowModal={setShowModal}
+              setJobListChanged={setJobListChanged}
             />
           ))
           : null}
