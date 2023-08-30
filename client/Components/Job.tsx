@@ -1,15 +1,47 @@
 import React from 'react';
 import { JobData } from '../../types/types';
+import { useridFromCookie } from '../globalFunction';
+
 
 function Job({
   job,
   setEditForm,
   setShowModal,
+  setJobListChanged,
 }: {
   job: JobData;
   setEditForm(value: JobData): void;
   setShowModal(value: boolean): void;
+  setJobListChanged: (value: boolean | ((prevState: boolean) => boolean)) => void;
 }) {
+
+  const userId = useridFromCookie();
+  function deleteJob(){
+    // DELETE FETCH
+    // setJobListChanged
+    async function deleteRequest(){
+      await fetch(`/api/jobs/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id:job.id}),
+      });
+      setJobListChanged((prevState) => !prevState);
+    }
+    deleteRequest()
+  }
+
+  const statusColor = (status: string) => {
+    switch (status) {
+      case 'Applied': return 'text-blue-500';
+      case 'Interview In Progress': return 'text-yellow-500';
+      case 'Rejected': return 'text-red-500';
+      case 'Offer': return 'text-green-500';
+      default: return 'text-gray-500';
+    }
+  };
+
   return (
     <div className="flex py-4 border-b text-white">
       <div className="w-[12.5%]">{job.company}</div>
@@ -21,11 +53,11 @@ function Job({
           {job.joblink}
         </a>
       </div>
-      <div className="w-[12.5%]">{job.status}</div>
+      <div className={`w-[12.5%] ${statusColor(job.status)}`}>{job.status}</div>
       <div className="w-[12.5%]">{job.notes}</div>
-      <div className="w-[12.5%] flex">
+      <div className="w-[12.5%] flex place-content-around">
         <img
-          className="w-5 h-5 p-0.5 mx-5"
+          className="w-5 h-5 p-0.5 "
           src="/assets/pen.png"
           onClick={() => {
             setEditForm(job);
@@ -33,11 +65,9 @@ function Job({
           }}
         ></img>
         <img
-          className="w-5 h-5  mx-5"
+          className="w-5 h-5 "
           src="/assets/delete.png"
-          onClick={() => {
-            setShowModal(true);
-          }}
+          onClick={deleteJob}
         ></img>
         {/* <button
           className="w-2/3 py-2 mt-4 bg-blue-500 rounded-lg hover:bg-blue-600 focus:ring focus:ring-blue-300"

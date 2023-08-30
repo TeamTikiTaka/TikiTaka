@@ -16,7 +16,7 @@ export const openaiController: openaiController = {
       return next()
     }
     catch (err) {
-      const log = `Error occuring in movesController.graphData: ${err}`;
+      const log = `Error occuring in openaiController: ${err}`;
       const message = { err: 'Error occured on server side' };
       return next({ log: log, message: message });
     }
